@@ -19,12 +19,9 @@ void setup() {
   courier = createFont("Courier", 32);
   sylfaen = createFont("Sylfaen", 32);
   chiller = createFont("Chiller", 32);
-
-
 }
+
 void draw() {
-
-
   String[] lines = loadStrings("uniquewords.txt");
    for (int i = 0; i < 50; i++)
    {
