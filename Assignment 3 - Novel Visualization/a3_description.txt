@@ -1,0 +1,17 @@
+# C S 324E Group 13
+
+Assignment 3: Novel Visualization
+
+In this project, we implemented the functionalities of:
+a) A Python script (extract_words.py) that can parse a book and generate allwords.txt, uniquewords.txt and wordfrequency.txt.
+b) A Processing script (a3_novelvisualization.pde) that can visualize the words found in allwords.txt. This includes displaying
+random, colored words on the screen, and refreshing the words each time the user clicks a mouse button. The color scheme for the
+background and words was chosen to reflect the whimsical, fantasy nature of the story, with bright, vivid colors. 
+c) A Processing script (a3_wordfrequency.pde) that visualizes the frequency of different words appearing in the story. For this,
+we closely followed the recommended display in the assignment page, with horizontal bars representing specific frequency. The 
+largest bar at the bottom shows the large number of words that only appear once, while the narrow upper part reflects how 
+only a few words are repeated very often.
+
+Group Responsibilities:
+Albert and Amar implemented the extract_words.py and a3_wordfrequency.pde scripts. 
+Alex completed the a3_novelvisualization.pde code, and finished off the project with the required documentation.
