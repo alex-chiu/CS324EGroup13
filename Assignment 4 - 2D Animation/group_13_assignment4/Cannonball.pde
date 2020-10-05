@@ -26,15 +26,5 @@ class Cannonball extends Ship {
     cannonx2 += speed;
     cannonx3 += speed;
   }
-  
-  void setCannonX1(float cannonx1){
-    this.cannonx1 = cannonx1;
-  }
-  void setCannonX2(float cannonx2){
-    this.cannonx2 = cannonx2;
-  }
-  void setCannonX3(float cannonx3){
-    this.cannonx3 = cannonx3;
-  }
-  
+
 }
