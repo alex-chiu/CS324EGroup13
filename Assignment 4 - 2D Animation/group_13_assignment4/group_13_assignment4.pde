@@ -6,63 +6,63 @@ Cannonball c;
 Flag f;
 Waves w;
 
-int xoffset = 325; //for 700x600 window size
+int xoffset = 325; // For 700x600 window size
 int yoffset = 200;
 int flagoffset = 1;
 
 void setup () {
-  size(700,600);
+  size(700, 600);
   background(#00ffff);
   
   file = new SoundFile(this, "cannonball1.mp3");
   
   s = new Ship(
-  //speed
+  // Speed
   1,
-  //shipvertices
+  // Shipvertices
   25 - xoffset,65 - xoffset,175 - xoffset,285 - xoffset,325 - xoffset,0 + yoffset,150 + yoffset,225 + yoffset,250 + yoffset,
-  //shiplines
+  // Shiplines
   30 - xoffset,40 - xoffset,75 - xoffset,320 - xoffset,310 - xoffset,275 - xoffset,170 + yoffset,200 + yoffset,230 + yoffset,
-  //cannon
+  // Cannon
   115 - xoffset,175 - xoffset,235 - xoffset,200 + yoffset,30,15,
-  //mast
+  // Mast
   80 - xoffset,180 - xoffset,280 - xoffset,150 + yoffset,50 + 2 + yoffset,20 + 2 + yoffset,
-  //flag1
+  // Flag1
   30 - xoffset,130 - xoffset,230 - xoffset,70 + yoffset,40 + yoffset,80,60,
-  //logo
+  // Logo
   85 - xoffset,185 - xoffset,285 - xoffset,100 + yoffset,70 + yoffset,30,
-  //logo lines
+  // Logo lines
   65 - xoffset,165 - xoffset,265 - xoffset,105 - xoffset,205 - xoffset,305 - xoffset,85 + yoffset,115 + yoffset, 55 + yoffset,
-  //flag vertices
+  // Flag vertices
   0 - xoffset,110 - xoffset,-120 - xoffset,30 - xoffset,100 - xoffset,210 - xoffset,-20 - xoffset,130 - xoffset,200 - xoffset,310 - xoffset,80 - xoffset,230 - xoffset,
   70 + yoffset,130 + yoffset,40 + yoffset,100 + yoffset
 
   );
   
   c = new Cannonball(
-  //speed
+  // Speed
   1,
-  //cannonball
+  // Cannonball
   115 - xoffset,175 - xoffset,235 - xoffset,200 + yoffset,15);
   
   f = new Flag(
-  //speed & color
+  // Speed & color
   1,
-  //flag2
+  // Flag2
   60 - xoffset,160 - xoffset,260 - xoffset,52 + yoffset,22 + yoffset,20,10,
-  //flag 2 vertices
+  // Flag2 vertices
   70 - xoffset,79 - xoffset,61 - xoffset,70 - xoffset,70 - xoffset,80 - xoffset,60 - xoffset,70 - xoffset,170 - xoffset,179 - xoffset,161 - xoffset,170 - xoffset,170 - xoffset,180 - xoffset,160 - xoffset,170 - xoffset,270 - xoffset,279 - xoffset,261 - xoffset,270 - xoffset,270 - xoffset,280 - xoffset,260 - xoffset,270 - xoffset,
   100 + yoffset,54 + yoffset,0 + yoffset,56 + yoffset,110 + yoffset,64 + yoffset,-10 + yoffset,47 + yoffset,70 + yoffset,24 + yoffset,-30 + yoffset,26 + yoffset,80 + yoffset,34 + yoffset,-40 + yoffset,17 + yoffset,100 + yoffset,54 + yoffset,0 + yoffset,56 + yoffset,110 + yoffset,64 + yoffset,-10 + yoffset,47 + yoffset
   
   );
   
   w = new Waves(
-  //speed
+  // Speed
   1.275,
-  //waves
+  // Waves
   300 - xoffset,50 - xoffset,325 - xoffset,75 - xoffset,350 - xoffset,100 - xoffset,375 - xoffset,125 - xoffset,400 - xoffset,150 - xoffset,425 - xoffset,175 - xoffset,450 - xoffset,200 - xoffset,475 - xoffset,225 - xoffset,500 - xoffset,250 - xoffset,525 - xoffset,275 - xoffset,550 - xoffset,300 - xoffset,575 - xoffset,326 - xoffset,
   230 + yoffset,260 + yoffset,
-  //wave bottom
+  // Wave bottom
   18 - xoffset,242 + yoffset,307,20
   );
   
@@ -70,6 +70,11 @@ void setup () {
 
 void draw () {
   background(#00ffff);
+  
+  // Draws ocean under ship
+  fill(#0000ff);
+  rect(0, 440, 700, 160);
+  
   s.display();
   s.move();
   f.display();
@@ -79,19 +84,19 @@ void draw () {
   c.display();
   c.move();
   
-  //plays cannonball sound at halfway point
+  // Plays cannonball sound at halfway point
   if (s.shipvertexx5 > 350 && s.shipvertexx5 < 352){
     file.play();
   }
   
-  //cannonballs fire and grow bigger after halfway point
+  // Cannonballs fire and grow bigger after halfway point
   if (s.shipvertexx5 > 350 && s.shipvertexx5 < 700){
     c.speed = 2;
     c.cannony += c.speed;
     c.cannonradius += c.speed/20;
   }
   
-  //make waves go back and forth
+  // Make waves go back and forth
   if (s.shipvertexx5 % 25 == 0){
     w.speed = -5.5;
   }
@@ -99,7 +104,7 @@ void draw () {
     w.speed = 1.275;
   }
   
-  //make flags flap up and down
+  // Make flags flap up and down
   if (s.shipvertexx5 % 100 == 0){
     f.flag2vertexy2 -= flagoffset; f.flag2vertexy4 -= flagoffset; f.flag2vertexy6 -= flagoffset; f.flag2vertexy8 -= flagoffset; f.flag2vertexy10 -= flagoffset; f.flag2vertexy12 -= flagoffset; f.flag2vertexy14 -= flagoffset; f.flag2vertexy16 -= flagoffset; f.flag2vertexy18 -= flagoffset; f.flag2vertexy20 -= flagoffset; f.flag2vertexy22 -= flagoffset; f.flag2vertexy24 -= flagoffset; 
   }
@@ -107,7 +112,7 @@ void draw () {
     f.flag2vertexy2 += flagoffset; f.flag2vertexy4 += flagoffset; f.flag2vertexy6 += flagoffset; f.flag2vertexy8 += flagoffset; f.flag2vertexy10 += flagoffset; f.flag2vertexy12 += flagoffset; f.flag2vertexy14 += flagoffset; f.flag2vertexy16 += flagoffset; f.flag2vertexy18 += flagoffset; f.flag2vertexy20 += flagoffset; f.flag2vertexy22 += flagoffset; f.flag2vertexy24 += flagoffset; 
   }
   
-  //resets all x positions when ship goes offscreen
+  // Resets all x positions when ship goes offscreen
   if (w.wavebottomx1 > 700) {
     s.shipvertexx1 = 25 - xoffset; s.shipvertexx2 = 65 - xoffset; s.shipvertexx3 = 175 - xoffset; s.shipvertexx4 = 285 - xoffset; s.shipvertexx5 = 325 - xoffset;
     s.shiplinex1 = 30 - xoffset; s.shiplinex2 = 40 - xoffset; s.shiplinex3 = 75 - xoffset; s.shiplinex4 = 320 - xoffset; s.shiplinex5 = 310 - xoffset; s.shiplinex6 = 275 - xoffset;
@@ -132,5 +137,4 @@ void draw () {
     c.speed = 1;
     c.cannonradius = 15;
   }
-  
 }
