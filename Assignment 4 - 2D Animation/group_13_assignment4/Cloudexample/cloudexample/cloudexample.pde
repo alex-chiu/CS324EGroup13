@@ -25,8 +25,6 @@ Rain r2;
   c.move();
   c2.display();
   c2.move();
-
-  
   
   if (c.c4x + 30 < 0){
     c.c1x = 200 + xoffset;

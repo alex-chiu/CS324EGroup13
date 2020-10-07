@@ -9,7 +9,7 @@ class Ship {
         logolinex1, logolinex2, logolinex3, logolinex4, logolinex5, logolinex6, logoliney1, logoliney2, logoliney3,
         flagvertexx1, flagvertexx2, flagvertexx3, flagvertexx4, flagvertexx5, flagvertexx6, flagvertexx7, flagvertexx8, flagvertexx9, flagvertexx10, flagvertexx11, flagvertexx12, 
         flagvertexy1, flagvertexy2, flagvertexy3, flagvertexy4;
-
+  boolean day;
   
   Ship() {
   };
@@ -42,9 +42,7 @@ class Ship {
   };
   
   void display() {
-
-       
-     //ship
+    // Ship
     fill(#E6BF83);
     beginShape();
     curveVertex(shipvertexx1, shipvertexy1); 
@@ -101,7 +99,12 @@ class Ship {
     curveVertex(flagvertexx2, flagvertexy2);
     curveVertex(flagvertexx1, flagvertexy2);
     endShape(CLOSE);
-    fill(#00ffff); //background color
+    if (day) { 
+      fill(#00ffff); 
+    }
+    else {
+      fill(0); 
+    }
     beginShape();
     curveVertex(flagvertexx3, flagvertexy1); 
     curveVertex(flagvertexx4, flagvertexy1);
@@ -115,7 +118,12 @@ class Ship {
     curveVertex(flagvertexx6, flagvertexy4);
     curveVertex(flagvertexx5, flagvertexy4);
     endShape(CLOSE);
-    fill(#00ffff); //background color
+    if (day) { 
+      fill(#00ffff); 
+    }
+    else {
+      fill(0); 
+    }
     beginShape();
     curveVertex(flagvertexx7, flagvertexy3); 
     curveVertex(flagvertexx8, flagvertexy3);
@@ -129,7 +137,12 @@ class Ship {
     curveVertex(flagvertexx10, flagvertexy2);
     curveVertex(flagvertexx9, flagvertexy2);
     endShape(CLOSE);
-    fill(#00ffff); //background color
+    if (day) { 
+      fill(#00ffff); 
+    }
+    else {
+      fill(0); 
+    }
     beginShape();
     curveVertex(flagvertexx11, flagvertexy1); 
     curveVertex(flagvertexx12, flagvertexy1);
@@ -138,7 +151,6 @@ class Ship {
     endShape(CLOSE);
     stroke(0);
     fill(255);
-
   }
   
   void move() {
@@ -153,4 +165,7 @@ class Ship {
 
   }
   
+  void changeDay(boolean daytime) {
+    this.day = daytime;
+  }
 }

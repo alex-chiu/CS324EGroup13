@@ -1,0 +1,20 @@
+# C S 324E Group 13
+
+Assignment 4: 2D Animation
+
+In this project, we implemented the functionalities of:
+a) A 2D scene drawn via Processing that continously animates.
+b) Multiple objects with different hierarchical groupings.
+
+More specifically:
+The ship travels from the left of the screen to the right, and the waves and flags move along with it.
+The cannonballs fire once the ship reaches the halfway point, with a sound playing.
+The clouds travel from right to left, with the rain falling from each cloud.
+The sun and moon move in an arc across the sky, and change the background of the screen depending on
+if it is daytime or nighttime. 
+
+Group Responsibilities:
+Albert primarily drew and animated the ship, flags, waves, and cannonballs.
+Amar worked on the clouds and rain.
+Alex drew and animated the sun and moon, and integrated all the different objects into the final 
+pde file.

@@ -5,29 +5,39 @@ Ship s;
 Cannonball c;
 Flag f;
 Waves w;
+Cloud cl1;
+Cloud cl2;
+Rain r1;
+Rain r2;
+Sun sun;
+Moon moon;
 
 int xoffset = 325; // For 700x600 window size
 int yoffset = 200;
+int cloudoffset = 540;
 int flagoffset = 1;
+boolean daytime = true;
 
 void setup () {
   size(700, 600);
   background(#00ffff);
   
+  // Load sound file
   file = new SoundFile(this, "cannonball1.mp3");
   
+  // Ship
   s = new Ship(
   // Speed
   1,
-  // Shipvertices
+  // Ship vertices
   25 - xoffset,65 - xoffset,175 - xoffset,285 - xoffset,325 - xoffset,0 + yoffset,150 + yoffset,225 + yoffset,250 + yoffset,
-  // Shiplines
+  // Ship lines
   30 - xoffset,40 - xoffset,75 - xoffset,320 - xoffset,310 - xoffset,275 - xoffset,170 + yoffset,200 + yoffset,230 + yoffset,
   // Cannon
   115 - xoffset,175 - xoffset,235 - xoffset,200 + yoffset,30,15,
   // Mast
   80 - xoffset,180 - xoffset,280 - xoffset,150 + yoffset,50 + 2 + yoffset,20 + 2 + yoffset,
-  // Flag1
+  // Flag 1
   30 - xoffset,130 - xoffset,230 - xoffset,70 + yoffset,40 + yoffset,80,60,
   // Logo
   85 - xoffset,185 - xoffset,285 - xoffset,100 + yoffset,70 + yoffset,30,
@@ -36,15 +46,15 @@ void setup () {
   // Flag vertices
   0 - xoffset,110 - xoffset,-120 - xoffset,30 - xoffset,100 - xoffset,210 - xoffset,-20 - xoffset,130 - xoffset,200 - xoffset,310 - xoffset,80 - xoffset,230 - xoffset,
   70 + yoffset,130 + yoffset,40 + yoffset,100 + yoffset
-
   );
   
+  // Cannonballs
   c = new Cannonball(
   // Speed
   1,
   // Cannonball
   115 - xoffset,175 - xoffset,235 - xoffset,200 + yoffset,15);
-  
+  // Flag
   f = new Flag(
   // Speed & color
   1,
@@ -52,10 +62,10 @@ void setup () {
   60 - xoffset,160 - xoffset,260 - xoffset,52 + yoffset,22 + yoffset,20,10,
   // Flag2 vertices
   70 - xoffset,79 - xoffset,61 - xoffset,70 - xoffset,70 - xoffset,80 - xoffset,60 - xoffset,70 - xoffset,170 - xoffset,179 - xoffset,161 - xoffset,170 - xoffset,170 - xoffset,180 - xoffset,160 - xoffset,170 - xoffset,270 - xoffset,279 - xoffset,261 - xoffset,270 - xoffset,270 - xoffset,280 - xoffset,260 - xoffset,270 - xoffset,
-  100 + yoffset,54 + yoffset,0 + yoffset,56 + yoffset,110 + yoffset,64 + yoffset,-10 + yoffset,47 + yoffset,70 + yoffset,24 + yoffset,-30 + yoffset,26 + yoffset,80 + yoffset,34 + yoffset,-40 + yoffset,17 + yoffset,100 + yoffset,54 + yoffset,0 + yoffset,56 + yoffset,110 + yoffset,64 + yoffset,-10 + yoffset,47 + yoffset
+  100 + yoffset,54 + yoffset,0 + yoffset,56 + yoffset,110 + yoffset,64 + yoffset,-10 + yoffset,47 + yoffset,70 + yoffset,24 + yoffset,-30 + yoffset,26 + yoffset,80 + yoffset,34 + yoffset,-40 + yoffset,17 + yoffset,100 + yoffset,54 + yoffset,0 + yoffset,56 + yoffset,110 + yoffset,64 + yoffset,-10 + yoffset,47 + yoffset,
+  daytime);
   
-  );
-  
+  // Waves
   w = new Waves(
   // Speed
   1.275,
@@ -66,15 +76,38 @@ void setup () {
   18 - xoffset,242 + yoffset,307,20
   );
   
+  // Clouds and Rain
+   cl1 = new Cloud(3, 200, 250, 150, 300, 100, 400, 50, 200 + cloudoffset, 250 + cloudoffset, 300 + cloudoffset, 100 + cloudoffset, 400 + cloudoffset);
+   cl2 = new Cloud(3, 200, 250, 150, 300, 100, 400, 50, 200 + cloudoffset + 200 , 250 + cloudoffset + 200, 300 + cloudoffset + 200, 100 + cloudoffset + 200, 400 + cloudoffset + 200);  
+   r1 = new Rain(3, 3, 200 + cloudoffset, 220 + cloudoffset, 240 + cloudoffset, 260 + cloudoffset, 280 + cloudoffset, 190, 180, 170, 160, 150, 5, 0);
+   r2 = new Rain(3, 3, 200 + cloudoffset + 200, 220 + cloudoffset + 200, 240 + cloudoffset + 200, 260 + cloudoffset + 200, 280 + cloudoffset + 200, 190, 180, 170, 160, 150, 5, 0);
+   
+   // Sun and Moon
+   sun = new Sun(1.0, 0, 50, width);
+   moon = new Moon(1.0, 0, 80, width, 20);
 }
 
 void draw () {
-  background(#00ffff);
+  if (daytime) {
+    background(#00ffff);
+    sun.display();
+    sun.move();
+    f.changeDay(daytime);
+    s.changeDay(daytime);
+  }
+  else {
+    background(0);
+    moon.display();
+    moon.move();
+    f.changeDay(daytime);
+    s.changeDay(daytime);
+  }
   
   // Draws ocean under ship
   fill(#0000ff);
   rect(0, 440, 700, 160);
   
+  // Display and move each object
   s.display();
   s.move();
   f.display();
@@ -83,6 +116,14 @@ void draw () {
   w.move();
   c.display();
   c.move();
+  r1.display();
+  r1.move();
+  r2.display();
+  r2.move();
+  cl1.display();
+  cl1.move();
+  cl2.display();
+  cl2.move();
   
   // Plays cannonball sound at halfway point
   if (s.shipvertexx5 > 350 && s.shipvertexx5 < 352){
@@ -136,5 +177,79 @@ void draw () {
     c.cannony = 200 + yoffset;
     c.speed = 1;
     c.cannonradius = 15;
+  }
+  
+  if (cl1.c4x + 30 < 0) {
+    cl1.c1x = 200 + cloudoffset;
+    cl1.c2x = 250 + cloudoffset;
+    cl1.c4x = 300 + cloudoffset;
+    cl1.c5x = 100 + cloudoffset;
+    cl1.c6x = 400 + cloudoffset;
+    
+    r1.x1 = 200 + cloudoffset;
+    r1.x2 = 220 + cloudoffset;
+    r1.x3 = 240 + cloudoffset;
+    r1.x4 = 260 + cloudoffset;
+    r1.x5 = 280 + cloudoffset;
+    
+    r1.y1 = 190;
+    r1.y2 = 180;
+    r1.y3 = 170;
+    r1.y4 = 160;
+    r1.y5 = 150;
+    
+    r1.c =0;
+  }
+  if (cl2.c4x + 30 < 0) {
+    cl2.c1x = 200 + cloudoffset + 200;
+    cl2.c2x = 250 + cloudoffset + 200;
+    cl2.c4x = 300 + cloudoffset + 200;
+    cl2.c5x = 100 + cloudoffset + 200;
+    cl2.c6x = 400 + cloudoffset + 200;
+    
+    r2.x1 = 200 + cloudoffset + 200;
+    r2.x2 = 220 + cloudoffset + 200;
+    r2.x3 = 240 + cloudoffset + 200;
+    r2.x4 = 260 + cloudoffset + 200;
+    r2.x5 = 280 + cloudoffset + 200;
+    
+    r2.y1 = 190;
+    r2.y2 = 180;
+    r2.y3 = 170;
+    r2.y4 = 160;
+    r2.y5 = 150;
+    
+    r2.c = 0;
+  }
+  if (cl1.c1x < 400) { 
+    r1.y1 += r1.rainspeed;
+    r1.y2 += r1.rainspeed;
+    r1.y3 += r1.rainspeed;
+    r1.y4 += r1.rainspeed;
+    r1.y5 += r1.rainspeed;
+  }
+  if (r1.y1 > 200) {
+    r1.c = #00ffff;
+  }
+  if (cl2.c1x < 400) {
+    r2.y1 += r1.rainspeed;
+    r2.y2 += r1.rainspeed;
+    r2.y3 += r1.rainspeed;
+    r2.y4 += r1.rainspeed;
+    r2.y5 += r1.rainspeed;
+  }
+  if (r2.y1 > 200) {
+    r2.c = #00ffff;
+  }
+  
+  // Sun boundary constraints
+  if (sun.x >= width) {
+    sun.x = 0;
+    daytime = false;
+  }
+  
+  if (moon.x >= width) {
+    moon.x = 0; 
+    daytime = true;
   }
 }
