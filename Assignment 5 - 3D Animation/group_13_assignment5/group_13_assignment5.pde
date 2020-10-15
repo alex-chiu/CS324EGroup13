@@ -7,10 +7,12 @@ boolean switchLeftRight = false;
 boolean switchUpDown = false;
 boolean switchFrontBack = false;
 
-  void setup(){
-    size(700,600,P3D);
+float theta = 0;
+
+void setup() {
+    size(700, 600, P3D);
       
-    steve = new Person(
+    steve = new Person (
     // translate1 - translate6
     width/2, height/2 - 100, - 100,
     0, 85, 0,
@@ -62,12 +64,20 @@ boolean switchFrontBack = false;
     255
     );
   
-  }
+}
   
-  void draw(){
+void draw(){
     background(0);
     lights();
-    camera(mouseX, mouseY, 2000, width/2, height/2, 0, 0, 1, 0);
+    
+    // Rotating Camera
+    if (mouseX <= width/3) {
+      theta += 0.01;
+    }
+    else if (mouseX >= 2*width/3) {
+      theta -= 0.01;
+    }
+    camera(width/2 + 2000*sin(theta), height/2, 2000*cos(theta), width/2, height/2, 0, 0, 1, 0);
 
     steve.display();
     
@@ -112,8 +122,14 @@ boolean switchFrontBack = false;
       frosty.moveLeft();
     if (frosty.sphere1x == -900)
       switchLeftRight = false;
-    
-  }
+      
+  stroke(255);
+  pushMatrix();
+  translate(width/2, height/2, 0);
+  noFill();
+  box(1600);
+  popMatrix();
+}
   
 
   
