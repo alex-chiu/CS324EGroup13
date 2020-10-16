@@ -1,4 +1,4 @@
-class Person{
+class Person {
   float translate1x1, translate1x2, translate1x3, 
         translate2x1, translate2x2, translate2x3, 
         translate3x1, translate3x2, translate3x3, 

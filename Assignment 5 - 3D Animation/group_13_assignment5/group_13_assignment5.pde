@@ -2,6 +2,7 @@ Person steve;
 Snowball snowball;
 Snowball snowball2;
 Snowman frosty;
+PShape man;
 
 boolean switchLeftRight = false;
 boolean switchUpDown = false;
@@ -11,6 +12,8 @@ float theta = 0;
 
 void setup() {
     size(700, 600, P3D);
+    
+    man = loadShape("IronMan.obj");
       
     steve = new Person (
     // translate1 - translate6
@@ -72,10 +75,10 @@ void draw(){
     
     // Rotating Camera
     if (mouseX <= width/3) {
-      theta += 0.01;
+      theta -= 0.01;
     }
     else if (mouseX >= 2*width/3) {
-      theta -= 0.01;
+      theta += 0.01;
     }
     camera(width/2 + 2000*sin(theta), height/2, 2000*cos(theta), width/2, height/2, 0, 0, 1, 0);
 
@@ -123,11 +126,20 @@ void draw(){
     if (frosty.sphere1x == -900)
       switchLeftRight = false;
       
+  // Draw Box
   stroke(255);
   pushMatrix();
   translate(width/2, height/2, 0);
   noFill();
   box(1600);
+  popMatrix();
+  
+  // Draw Iron Man
+  noStroke();
+  pushMatrix();
+  translate(width/2, height/2, 600);
+  rotateZ(PI);
+  shape(man, 0, 0);
   popMatrix();
 }
   
