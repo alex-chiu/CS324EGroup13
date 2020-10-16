@@ -14,7 +14,8 @@ the edge. The colored disc also rotates at a given angular velocity.
 A camera that rotates according to mouse position. If the mouse is in the left third of the screen, the
 camera rotates to the left while staying centered on the origin of the scene. It rotates to the right if
 the mouse is in the right third, and stays still if it is in the center third.
-An Iron Man .obj object that also moves across the screen.
+A static, transparent box to serve as a reference frame (given the rotating camera).
+An IronMan.obj object.
 
 Group Responsibilities:
 Albert and Amar worked on the snowman, person, and snowball objects. They drew and animated each of these.
