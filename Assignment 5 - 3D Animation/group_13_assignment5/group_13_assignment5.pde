@@ -1,6 +1,7 @@
 Person steve;
 Snowball snowball;
 Snowball snowball2;
+ColorDisc cd1;
 Snowman frosty;
 PShape man;
 
@@ -39,8 +40,6 @@ void setup() {
     1,
     // sphere1 - sphere3
     0, 0, 0, 25,
-    0, -125, 0, 50,
-    0, -70, 0, 25,
     // color
     255
     );
@@ -50,10 +49,26 @@ void setup() {
     1,
     // sphere1 - sphere3
     width/2, height/2, 0, 25,
-    0, -125, 0, 50,
-    0, -70, 0, 25,
     // color
     255
+    );
+    
+    color c = color(124, 230, 50);
+    
+    cd1 = new ColorDisc(
+    // speed
+    1,
+    // position
+    width/2, height/2, -150, 
+    // radius
+    100, 
+    // height
+    200, 
+    // number of sides
+    20, 
+    // rotation rate
+    0.01,
+    c
     );
     
     frosty = new Snowman(
@@ -95,25 +110,37 @@ void draw(){
       
     snowball.display();
     
-    if (snowball.sphere1y == 1600)
+    if (snowball.y == 1600)
       switchUpDown = true;
-    if (snowball.sphere1y < 1600 && switchUpDown == false)
+    if (snowball.y < 1600 && switchUpDown == false)
       snowball.moveDown();    
-    if (snowball.sphere1y > -900 && switchUpDown == true)
+    if (snowball.y > -900 && switchUpDown == true)
       snowball.moveUp();
-    if (snowball.sphere1y == -900)
+    if (snowball.y == -900)
       switchUpDown = false;
     
     snowball2.display();
     
-    if (snowball2.sphere1z == 1600)
+    if (snowball2.z == 1600)
       switchFrontBack = true;
-    if (snowball2.sphere1z < 1600 && switchFrontBack == false)
+    if (snowball2.z < 1600 && switchFrontBack == false)
       snowball2.moveFront();    
-    if (snowball2.sphere1z > -900 && switchFrontBack == true)
+    if (snowball2.z > -900 && switchFrontBack == true)
       snowball2.moveBack();
-    if (snowball2.sphere1z == -900)
+    if (snowball2.z == -900)
       switchFrontBack = false;
+      
+    cd1.display();
+    
+    if (cd1.z == 1600)
+      switchFrontBack = true;
+    if (cd1.z < 1600 && switchFrontBack == false)
+      cd1.moveFront();    
+    if (cd1.z > -900 && switchFrontBack == true)
+      cd1.moveBack();
+    if (cd1.z == -900)
+      switchFrontBack = false;
+    cd1.rotate();
     
     frosty.display();
     
