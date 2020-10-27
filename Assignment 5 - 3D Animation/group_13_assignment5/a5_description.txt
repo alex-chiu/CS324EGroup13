@@ -1,0 +1,22 @@
+# C S 324E Group 13
+
+Assignment 5: 3D Animation
+
+In this project, we implemented the functionalities of:
+a) A 3D scene drawn via Processing that continously animates.
+b) Multiple objects with different hierarchical groupings.
+
+More specifically:
+A person object that moves back and forth across the screen.
+A snowman object that does the same.
+Snowball and colored disc objects that move across the screen and switch directions when encountering
+the edge. The colored disc also rotates at a given angular velocity.
+A camera that rotates according to mouse position. If the mouse is in the left third of the screen, the
+camera rotates to the left while staying centered on the origin of the scene. It rotates to the right if
+the mouse is in the right third, and stays still if it is in the center third.
+A static, transparent box to serve as a reference frame (given the rotating camera).
+An IronMan.obj object.
+
+Group Responsibilities:
+Albert and Amar worked on the snowman, person, and snowball objects. They drew and animated each of these.
+Alex completed the disc, the Iron Man object, and the camera rotation functionality.
