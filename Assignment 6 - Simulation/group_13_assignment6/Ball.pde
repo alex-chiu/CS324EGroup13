@@ -26,5 +26,22 @@ class Ball {
   void moveRightFaster(){
     x += 10;
   }
-
+  void moveRightSlower(){
+    x += 2;
+  }
+  void moveDown(){
+    y += 5;
+  }
+  void moveDownSlower(){
+    y += 2;
+  }
+  void moveDownFirstRamp(){
+    y += 0.20;
+  }
+  void moveDownSecondRamp(){
+    y += 0.42;
+  }
+  void moveLeft(){
+    x -= 2;
+  }
 }
