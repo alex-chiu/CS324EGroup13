@@ -1,0 +1,34 @@
+# C S 324E Group 13
+
+Assignment 6: Simulation
+
+In this project, we implemented a simulation that fully replicates a gravity-based
+particle system. When the simulation begins, 10 randomly generated particles are 
+created at the top of the screen, and fall according to the laws of physics. Three
+generic platform obstacles are spawned, and the particles can collide and interact
+with said platforms. Users can introduce individual, smaller obstacles by clicking
+on the screen, and can reset the simulation by pressing 'R.'
+
+In terms of forces, the ones that apply to our simulation are:
+- Gravity: Each particle is pulled down towards the bottom of the screen.
+- Restitution: Each collision between particles and obstacles loses energy.
+- Friction: As each particle rolls/moves along a surface, it loses energy as well.
+
+Throughout the development process, we realized that several feature were infeasible
+given the time frame of our assignment. A considerable portion of our time was 
+dedicated to perfecting the collisions between each of the objects in our simulation.
+We focused mainly on ensuring that particle-obstacle collisions worked for purely
+rectangular platforms, and that particle-particle collisions functioned mathematically.
+As such, we were unable to include some of the more elaborate designs that we laid out
+in our progress report (moving elevator, diagonal platforms, etc.).
+
+Challenges:
+- Ball behavior when resting at bottom of screen (oscillations).
+- Vector math for circular collisions.
+
+Group Responsibilities:
+- Albert and Amar worked on the ball and platform classes, and the framework for the 
+scene as a whole.
+- Alex polished up the ball class and focused primarily on ensuring the vector math
+and physics worked out as intended. He also finalized and integrated the group's 
+work.
