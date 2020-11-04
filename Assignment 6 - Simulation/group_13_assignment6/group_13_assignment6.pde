@@ -1,117 +1,70 @@
-float y;
-float vy;
-float m = 5.0;
-float ry = 250;
-float ks = 0.0005;
-float kd = 0.1;
-Ball b;
-Ball b2;
-boolean ballOnElevator = false;
-boolean gotOffElevator = false;
-boolean onLongPlatform = false;
-boolean onFirstRamp = false;
-boolean hitFirstWall = false;
-boolean onSecondRamp = false;
-color ballColor = 210;
-PImage tex;
-PShape sphere;
-float angle;
+import java.util.ArrayList;
+
+Ball[] balls;
+ArrayList<Obstacle> obstacles;
+Obstacle o1, o2, o3;
+color c2 = color(0, 0, 0);
+
+boolean restartSim = true;
 
 void setup() {
- size(700, 600, P3D);
- b = new Ball(-20, 568, 20, 0);
-  noStroke();
-  tex = loadImage("hamster1.png");
-  sphere = createShape(SPHERE, 10);
-  sphere.setTexture(tex);
-  angle = 0;
-  textureMode(NORMAL);
-  textureWrap(REPEAT);
+  size(600, 600); 
+  
+  // Create new balls
+  balls = new Ball[10];
+  
+  // Create obstacles
+  o1 = new Obstacle(0, 75, 150, 25, c2);
+  o2 = new Obstacle(450, 150, 150, 25, c2);
+  o3 = new Obstacle(100, 450, 400, 25, c2);
 }
 
 void draw() {
- background(210);
- 
-  pushMatrix();
-  translate(110,200,0);
-  rotateY(angle);
-  angle += 0.10;
-  shape(sphere);
-  popMatrix();
+  background(255);
   
- float f = -(ks * (y - ry)); // float f = -((ks * (y - ry)) + kd*vy);
- float a = f/m;
- vy = vy + a;
- y += vy;
- rect(0, y, 100, 20);
- rect(0, y + 80, 100, 20);
- b2 = new Ball(45, y + 69, 20, ballColor);
- rect(100, 80, 500, 20);
- rect(100, 100, 20, 499);
- quad(699, 200, 200, 250, 699, 250, 699, 200);
- quad(120, 400, 120, 500, 600, 500, 120, 400);
- //ellipse(45, 568, 20, 20);
-  b2.display();
-  b.display();
+  if (restartSim) {
+    restartSim = false; 
+    for (int i = 0; i < balls.length; i++) {
+      balls[i] = new Ball(random(25, 575), 25, 10, random(5, 10), color(random(0, 200)));
+      balls[i].vx = random(-10, 10);
+    }
+    obstacles = new ArrayList<Obstacle>();
+    obstacles.add(o1);
+    obstacles.add(o2);
+    obstacles.add(o3);
+  }
+ 
+  for (int i = 0; i < balls.length; i++) {
+    balls[i].resetAccel();
+    balls[i].applyForce(0, 0.75 * balls[i].m);
+    balls[i].checkBounds();
+    
+    for (int on = 0; on < obstacles.size(); on++) {
+      balls[i].checkCollideObstacle(obstacles.get(on));
+    }
+    
+    for (int j = 0; j < i; j++) {
+       balls[i].checkCollideBall(balls[j]);
+    }
+    
+    balls[i].propagate();
+    balls[i].display();
+  }
+  
+  for (int i = 0; i < obstacles.size(); i++) {
+    obstacles.get(i).display();
+  }
+}
 
- if (y >= 498 && ballOnElevator == false){
-   if (b.x < 45)
-      b.moveRight(); 
- }
- if (b.x >= 35 && gotOffElevator == false){
-    ballOnElevator = true;
-    ballColor = 0;
-    b.x = -100;
- }
- if (b2.y <= 70 && ballOnElevator == true && onLongPlatform == false){
-   gotOffElevator = true;
-   b.x = 30;
-   b.y = 70;
-   b.moveRight();
-   ballColor = 210;
- }
- if (gotOffElevator == true && onLongPlatform == false){
-   if (b.x < 600)
-     b.moveRightFaster();
- }
- if (b.x >= 599){
-   onLongPlatform = true;
- }
- if (b.x >= 599 && b.x <= 655 && onFirstRamp == false && b.y < 300){
-   b.moveDown();
-   b.moveRightSlower();
- }
- if (b.x == 655){
-   onFirstRamp = true;
- }
- if (b.x >= 131 && onFirstRamp == true && b.y < 251){
-   b.moveLeft();
-   b.moveDownFirstRamp();
- }
- if (b.x == 129) {
-   onFirstRamp = false;
-   hitFirstWall = true;
- }
- if (b.x <= 310 && hitFirstWall == true){
-   b.moveRightSlower();
-   b.moveDownSlower();
- }
- if (b.x == 311 && hitFirstWall == true){
-   onSecondRamp = true;
- }
- if (onSecondRamp == true){
-   hitFirstWall = false;
-   b.moveRightSlower();
-   b.moveDownSecondRamp();
- }
- if (b.x >= 705){
-   onSecondRamp = false;
-   ballOnElevator = false;
-   gotOffElevator = false;
-   onLongPlatform = false;
-   onFirstRamp = false;
-   onSecondRamp = false;
-   b.x = -20;
-   b.y = 568;
- }
+void keyPressed() {
+  if (key == 'r') {
+    restartSim = true;
+  }
+}
+
+void mousePressed() {
+  if (mouseX >= 12.5 && mouseX <= 587.5 && mouseY >= 12.5 && mouseY <= 587.5) {
+    Obstacle o = new Obstacle(mouseX - 12.5, mouseY - 12.5, 25, 25, c2);
+    obstacles.add(o);
+  }
 }
