@@ -9,6 +9,14 @@ generic platform obstacles are spawned, and the particles can collide and intera
 with said platforms. Users can introduce individual, smaller obstacles by clicking
 on the screen, and can reset the simulation by pressing 'R.'
 
+Classes:
+- Main: Contains primary functionality for the simulation (setup, draw, etc.).
+- Ball: Class for each of the individual simulated particles. Includes movement
+(force, acceleration, propagation, etc.) and collision (other particles, obstacles)
+functionalities.
+- Obstacle: Class for the individual platforms/obstacles the balls can collide with
+and that users can introduce to the simulation.
+
 In terms of forces, the ones that apply to our simulation are:
 - Gravity: Each particle is pulled down towards the bottom of the screen.
 - Restitution: Each collision between particles and obstacles loses energy.
