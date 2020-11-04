@@ -3,7 +3,8 @@ import java.util.ArrayList;
 // Global variables
 Ball[] balls;
 ArrayList<Obstacle> obstacles;
-Obstacle o1, o2, o3;
+Obstacle o1, o2;
+MovingObstacle o3;
 color c2 = color(0, 0, 0);
 boolean restartSim = true;
 
@@ -16,7 +17,7 @@ void setup() {
   // Create default obstacles
   o1 = new Obstacle(0, 75, 150, 25, c2);
   o2 = new Obstacle(450, 150, 150, 25, c2);
-  o3 = new Obstacle(100, 450, 400, 25, c2);
+  o3 = new MovingObstacle(100, 450, 400, 25, c2);
 }
 
 void draw() {
@@ -37,6 +38,8 @@ void draw() {
     obstacles.add(o1);
     obstacles.add(o2);
     obstacles.add(o3);
+    
+    o3.vx = 5;
   }
  
   // Loops through each ball
@@ -62,6 +65,11 @@ void draw() {
     // Draws the balls
     balls[i].display();
   }
+  
+  if (o3.x + o3.l >= width || o3.x <= 0) {
+        o3.vx *= -1;
+      }
+      o3.propagateObs();
   
   // Draws the obstacles
   for (int i = 0; i < obstacles.size(); i++) {

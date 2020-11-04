@@ -69,7 +69,7 @@ class Ball {
   // Checks collisions with other balls
   void checkCollideBall(Ball b) {
     // Checks if two balls are close enough to overlap
-    if ((r + b.r)*(r + b.r) > ((b.x - x)*(b.x - x) + (b.y - y)*(b.y - y))) {
+    if ((r + b.r)*(r + b.r) >= ((b.x - x)*(b.x - x) + (b.y - y)*(b.y - y))) {
       // Calculates the magnitude of the distance between the center of eacb ball
       float diffX = b.x - x;
       float diffY = b.y - y;

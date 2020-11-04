@@ -16,6 +16,7 @@ Classes:
 functionalities.
 - Obstacle: Class for the individual platforms/obstacles the balls can collide with
 and that users can introduce to the simulation.
+- MovingObstacle: An extension of the Obstacle class that involves motion.
 
 In terms of forces, the ones that apply to our simulation are:
 - Gravity: Each particle is pulled down towards the bottom of the screen.
@@ -28,15 +29,15 @@ dedicated to perfecting the collisions between each of the objects in our simula
 We focused mainly on ensuring that particle-obstacle collisions worked for purely
 rectangular platforms, and that particle-particle collisions functioned mathematically.
 As such, we were unable to include some of the more elaborate designs that we laid out
-in our progress report (moving elevator, diagonal platforms, etc.).
+in our progress report (elevator, diagonal platforms, etc.).
 
 Challenges:
 - Ball behavior when resting at bottom of screen (oscillations).
 - Vector math for circular collisions.
 
 Group Responsibilities:
-- Albert and Amar worked on the ball and platform classes, and the framework for the 
+- Albert and Amar worked on the obstacle and moving obstacle classes, and the framework for the 
 scene as a whole.
-- Alex polished up the ball class and focused primarily on ensuring the vector math
+- Alex worked on the ball class and focused primarily on ensuring the vector math
 and physics worked out as intended. He also finalized and integrated the group's 
 work.
