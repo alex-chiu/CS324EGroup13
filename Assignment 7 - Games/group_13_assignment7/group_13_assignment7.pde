@@ -6,12 +6,16 @@ boolean bulletFired = false;
 boolean isPaused = false;
 Bullet bullet;
 Player player;
+Enemy enemy;
+GUI gui;
 
 void setup()
 {
   size(800, 600);
-  player = new Player(350, 400, 0, 0, 5, 50);
+  player = new Player(350, 400, 0, 0, 5, 50, color(255));
   bullet = new Bullet(player.x + player.size / 2, player.y, 10, color(255));
+  enemy = new Enemy(350, 50, 0, 0, 5, 50, color(255,0,0));
+  gui = new GUI(10, 30, 0);
   smooth();
 }
 
@@ -41,6 +45,19 @@ void draw()
     bullet.x = player.x + player.size / 2;
     bullet.y = player.y - 5;
   }
+  
+  // Enemy
+  enemy.display();
+  
+  // Player Bullet and Enemy Collision
+  if (bullet.y <= enemy.y + enemy.size)
+  { 
+    enemy.x = -50;
+    gui.score += 1;
+  }
+  
+  // GUI
+  gui.display();
   
   // Setting World Bounds
   if (player.x <= 0)

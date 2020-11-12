@@ -1,4 +1,4 @@
-class Player{
+class Enemy{
   float x = 350;
   float y = 400;
   float velX = 0;
@@ -7,7 +7,7 @@ class Player{
   float size = 50;
   color c;
   
-  Player(float x, float y, float velX, float velY, float movespeed, float size, color c){
+  Enemy(float x, float y, float velX, float velY, float movespeed, float size, color c){
     this.x = x; this.y = y; this.velX = velX; 
     this.velY = velY; this.movespeed = movespeed; this.size = size;
     this.c = c;
