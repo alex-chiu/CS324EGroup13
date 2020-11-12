@@ -19,4 +19,7 @@ class Enemy{
     noFill();
   }
 
+  void move(){
+    y += 0.25;
+  }
 }
