@@ -18,4 +18,8 @@ class Bullet{
     y -= 10;
   }
   
+  void enemyUpdate(){
+    y += 1;
+  }
+  
 }
