@@ -28,7 +28,7 @@ void setup()
   enemyBullet3 = new Bullet(enemy3.x + enemy3.size / 2, enemy3.y + enemy3.size, 10, color(255, 0, 0));
   enemyBullet4 = new Bullet(enemy4.x + enemy4.size / 2, enemy4.y + enemy4.size, 10, color(255, 0, 0));
   enemyBullet5 = new Bullet(enemy5.x + enemy5.size / 2, enemy5.y + enemy5.size, 10, color(255, 0, 0));
-  gui = new GUI(10, 30, 0);
+  gui = new GUI(10, 30, 0, 10, 60, 3, 670, 30, 1);
   smooth();
 }
 
@@ -36,6 +36,7 @@ void draw()
 {
   background(0);
   noStroke();
+  
   // Player Functionality
   player.display();
   player.velX = (rightKey - leftKey) * player.movespeed;
@@ -67,53 +68,58 @@ void draw()
   }
   
   // Enemy Bullet and Player Collision
-  if (enemyBullet1.y >= player.y && enemyBullet1.y < player.y + player.size && enemyBullet1.x >= player.x && enemyBullet1.x <= player.x + player.size && player.x != -50)
+  if (enemyBullet1.y >= player.y && enemyBullet1.y < player.y + player.size && enemyBullet1.x >= player.x && enemyBullet1.x <= player.x + player.size)
   { 
     player.x = -50;
+    gui.lives -= 1;
   }
-  if (enemyBullet2.y >= player.y && enemyBullet2.y < player.y + player.size && enemyBullet2.x >= player.x && enemyBullet2.x <= player.x + player.size && player.x != -50)
+  if (enemyBullet2.y >= player.y && enemyBullet2.y < player.y + player.size && enemyBullet2.x >= player.x && enemyBullet2.x <= player.x + player.size)
   { 
     player.x = -50;
+    gui.lives -= 1;
   }
-  if (enemyBullet3.y >= player.y && enemyBullet3.y < player.y + player.size && enemyBullet3.x >= player.x && enemyBullet3.x <= player.x + player.size && player.x != -50)
+  if (enemyBullet3.y >= player.y && enemyBullet3.y < player.y + player.size && enemyBullet3.x >= player.x && enemyBullet3.x <= player.x + player.size)
   { 
     player.x = -50;
+    gui.lives -= 1;
   }
-  if (enemyBullet4.y >= player.y && enemyBullet4.y < player.y + player.size && enemyBullet4.x >= player.x && enemyBullet4.x <= player.x + player.size && player.x != -50)
+  if (enemyBullet4.y >= player.y && enemyBullet4.y < player.y + player.size && enemyBullet4.x >= player.x && enemyBullet4.x <= player.x + player.size)
   { 
     player.x = -50;
+    gui.lives -= 1;
   }
-  if (enemyBullet5.y >= player.y && enemyBullet5.y < player.y + player.size && enemyBullet5.x >= player.x && enemyBullet5.x <= player.x + player.size && player.x != -50)
+  if (enemyBullet5.y >= player.y && enemyBullet5.y < player.y + player.size && enemyBullet5.x >= player.x && enemyBullet5.x <= player.x + player.size)
   { 
     player.x = -50;
+    gui.lives -= 1;
   }
   
   // Player Bullet and Enemy Collision
-  if (bullet.y <= enemy1.y + enemy1.size && bullet.y > enemy1.y && bullet.x >= enemy1.x && bullet.x <= enemy1.x + enemy1.size && enemy1.x != -50)
+  if (bullet.y <= enemy1.y + enemy1.size && bullet.y > enemy1.y && bullet.x >= enemy1.x && bullet.x <= enemy1.x + enemy1.size)
   { 
     enemy1.x = -50;
     updateScore();
     resetBullet();
   }
-  if (bullet.y <= enemy2.y + enemy2.size && bullet.y > enemy2.y && bullet.x >= enemy2.x && bullet.x <= enemy2.x + enemy2.size && enemy2.x != -50)
+  if (bullet.y <= enemy2.y + enemy2.size && bullet.y > enemy2.y && bullet.x >= enemy2.x && bullet.x <= enemy2.x + enemy2.size)
   { 
     enemy2.x = -50;
     updateScore();
     resetBullet();
   }
-  if (bullet.y <= enemy3.y + enemy3.size && bullet.y > enemy3.y && bullet.x >= enemy3.x && bullet.x <= enemy3.x + enemy3.size && enemy3.x != -50)
+  if (bullet.y <= enemy3.y + enemy3.size && bullet.y > enemy3.y && bullet.x >= enemy3.x && bullet.x <= enemy3.x + enemy3.size)
   { 
     enemy3.x = -50;
     updateScore();
     resetBullet();
   }
-  if (bullet.y <= enemy4.y + enemy4.size && bullet.y > enemy4.y && bullet.x >= enemy4.x && bullet.x <= enemy4.x + enemy4.size && enemy4.x != -50)
+  if (bullet.y <= enemy4.y + enemy4.size && bullet.y > enemy4.y && bullet.x >= enemy4.x && bullet.x <= enemy4.x + enemy4.size)
   { 
     enemy4.x = -50;
     updateScore();
     resetBullet();
   }
-  if (bullet.y <= enemy5.y + enemy5.size && bullet.y > enemy5.y && bullet.x >= enemy5.x && bullet.x <= enemy5.x + enemy5.size && enemy5.x != -50)
+  if (bullet.y <= enemy5.y + enemy5.size && bullet.y > enemy5.y && bullet.x >= enemy5.x && bullet.x <= enemy5.x + enemy5.size)
   { 
     enemy5.x = -50;
     updateScore();
