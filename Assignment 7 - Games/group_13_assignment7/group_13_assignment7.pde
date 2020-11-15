@@ -5,6 +5,8 @@ float leftKey;
 boolean bulletFired = false;
 boolean isPaused = false;
 boolean hitEnemy1, hitEnemy2, hitEnemy3, hitEnemy4, hitEnemy5;
+boolean resetPosition = false;
+boolean gameOver = false;
 int numEnemiesKilled = 0;
 int time = millis();
 Bullet bullet, enemyBullet1, enemyBullet2, enemyBullet3, enemyBullet4, enemyBullet5;
@@ -28,7 +30,7 @@ void setup()
   enemyBullet3 = new Bullet(enemy3.x + enemy3.size / 2, enemy3.y + enemy3.size, 10, color(255, 0, 0));
   enemyBullet4 = new Bullet(enemy4.x + enemy4.size / 2, enemy4.y + enemy4.size, 10, color(255, 0, 0));
   enemyBullet5 = new Bullet(enemy5.x + enemy5.size / 2, enemy5.y + enemy5.size, 10, color(255, 0, 0));
-  gui = new GUI(10, 30, 0, 10, 60, 3, 670, 30, 1);
+  gui = new GUI(10, 30, 0, 10, 60, 3, 670, 30, 1, 30, height/2, color(0,255,0));
   smooth();
 }
 
@@ -36,6 +38,62 @@ void draw()
 {
   background(0);
   noStroke();
+   
+  // GUI
+  gui.display();
+  
+  // Lose Condition
+  if (gui.lives <= 0)
+  {
+    lose();
+  }
+  
+  // Levels
+  if (gui.score == 50)
+  {
+    gui.level = 2;
+    resetPosition = true;
+    gui.score += 0.1;
+  }
+  if (gui.score == 100)
+  {
+    gui.level = 3;
+    resetPosition = true;
+    gui.score += 0.1;
+  }  
+  if (gui.score == 150)
+  {
+    gui.level = 4;
+    resetPosition = true;
+    gui.score += 0.1;
+  }
+  if (gui.score == 200)
+  {
+    gui.level = 5;
+    resetPosition = true;
+    gui.score += 0.1;
+  }
+  if (gui.score == 250)
+  {
+    win();
+  }
+      
+  if (resetPosition)
+  {
+    enemy1.x = 150; enemy1.y = 50;
+    enemy2.x = 250; enemy2.y = 50;
+    enemy3.x = 350; enemy3.y = 50;
+    enemy4.x = 450; enemy4.y = 50;
+    enemy5.x = 550; enemy5.y = 50;
+    
+    enemyBullet1.x = enemy1.x + enemy1.size / 2; enemyBullet1.y = enemy1.y + enemy1.size;
+    enemyBullet2.x = enemy2.x + enemy2.size / 2; enemyBullet2.y = enemy2.y + enemy2.size;
+    enemyBullet3.x = enemy3.x + enemy3.size / 2; enemyBullet3.y = enemy3.y + enemy3.size;
+    enemyBullet4.x = enemy4.x + enemy4.size / 2; enemyBullet4.y = enemy4.y + enemy4.size;
+    enemyBullet5.x = enemy5.x + enemy5.size / 2; enemyBullet5.y = enemy5.y + enemy5.size;
+    
+    resetPosition = false;
+  }
   
   // Player Functionality
   player.display();
@@ -55,18 +113,17 @@ void draw()
     bullet.update();
   if (bullet.y <= 0)
   {
-      resetBullet();
+    resetBullet();
   }
   
   // Enemy
   enemy1.display(); enemy2.display(); enemy3.display(); enemy4.display(); enemy5.display();
   enemyBullet1.display(); enemyBullet2.display(); enemyBullet3.display(); enemyBullet4.display(); enemyBullet5.display();
   enemy1.move(); enemy2.move(); enemy3.move(); enemy4.move(); enemy5.move();
-  if(time % 1000 >= 0){
-    //println("seconds: " + millis());
-    enemyBullet1.enemyUpdate(); enemyBullet2.enemyUpdate(); enemyBullet3.enemyUpdate(); enemyBullet4.enemyUpdate(); enemyBullet5.enemyUpdate();
-  }
   
+  // Enemy Bullets
+  enemyBullet1.enemyUpdate(); enemyBullet2.enemyUpdate(); enemyBullet3.enemyUpdate(); enemyBullet4.enemyUpdate(); enemyBullet5.enemyUpdate();
+
   // Enemy Bullet and Player Collision
   if (enemyBullet1.y >= player.y && enemyBullet1.y < player.y + player.size && enemyBullet1.x >= player.x && enemyBullet1.x <= player.x + player.size)
   { 
@@ -90,6 +147,33 @@ void draw()
   }
   if (enemyBullet5.y >= player.y && enemyBullet5.y < player.y + player.size && enemyBullet5.x >= player.x && enemyBullet5.x <= player.x + player.size)
   { 
+    player.x = -50;
+    gui.lives -= 1;
+  }
+  
+  // Player and Enemy Collision
+  if ( intersects(player.x, player.y, player.x + player.size, player.y + player.size, enemy1.x, enemy1.y, enemy1.x + enemy1.size, enemy1.y + enemy1.size) )
+  {
+    player.x = -50;
+    gui.lives -= 1;
+  }
+  if ( intersects(player.x, player.y, player.x + player.size, player.y + player.size, enemy2.x, enemy2.y, enemy2.x + enemy2.size, enemy2.y + enemy2.size) )
+  {
+    player.x = -50;
+    gui.lives -= 1;
+  }
+  if ( intersects(player.x, player.y, player.x + player.size, player.y + player.size, enemy3.x, enemy3.y, enemy3.x + enemy3.size, enemy3.y + enemy3.size) )
+  {
+    player.x = -50;
+    gui.lives -= 1;
+  }
+  if ( intersects(player.x, player.y, player.x + player.size, player.y + player.size, enemy4.x, enemy4.y, enemy4.x + enemy4.size, enemy4.y + enemy4.size) )
+  {
+    player.x = -50;
+    gui.lives -= 1;
+  }
+  if ( intersects(player.x, player.y, player.x + player.size, player.y + player.size, enemy5.x, enemy5.y, enemy5.x + enemy5.size, enemy5.y + enemy5.size) )
+  {
     player.x = -50;
     gui.lives -= 1;
   }
@@ -125,10 +209,7 @@ void draw()
     updateScore();
     resetBullet();
   }
-  
-  // GUI
-  gui.display();
-  
+
   // Setting World Bounds
   if (player.x <= 0)
     player.x = 0;
@@ -153,6 +234,62 @@ void resetBullet()
     bullet.y = player.y - 5;
 }
 
+boolean intersects(float left1, float top1, float right1, float bottom1, float left2, float top2, float right2, float bottom2) 
+{
+    return !(left1 > right2 || right1 < left2 || top1 > bottom2 || bottom1 < top2);
+}
+
+void win()
+{
+    // game over, push a key to restart game
+    gui.setColor(0);
+    enemy1.setColor(0); enemy2.setColor(0); enemy3.setColor(0); enemy4.setColor(0); enemy5.setColor(0);
+    enemyBullet1.setColor(0); enemyBullet2.setColor(0); enemyBullet3.setColor(0); enemyBullet4.setColor(0); enemyBullet5.setColor(0);
+    player.setColor(0);
+    bullet.setColor(0);
+    //enemy1.x = 0; enemy2.x = 0; enemy3.x = 0; enemy4.x = 0; enemy5.x = 0; 
+    //enemy1.y = 0; enemy2.y = 0; enemy3.y = 0; enemy4.y = 0; enemy5.y = 0; 
+    //enemyBullet1.x = 0; enemyBullet2.x = 0; enemyBullet3.x = 0; enemyBullet4.x = 0; enemyBullet5.x = 0; 
+    //enemyBullet1.y = 0; enemyBullet2.y = 0; enemyBullet3.y = 0; enemyBullet4.y = 0; enemyBullet5.y = 0; 
+    //player.x = 0; player.y = 0;
+    //bullet.x = 0; player.y =0;
+    gui.displayWin();
+    gameOver = true;
+}
+
+void lose()
+{
+    // game over, push a key to restart game
+    gui.setColor(0);
+    enemy1.setColor(0); enemy2.setColor(0); enemy3.setColor(0); enemy4.setColor(0); enemy5.setColor(0);
+    enemyBullet1.setColor(0); enemyBullet2.setColor(0); enemyBullet3.setColor(0); enemyBullet4.setColor(0); enemyBullet5.setColor(0);
+    player.setColor(0);
+    bullet.setColor(0);
+    //enemy1.x = 0; enemy2.x = 0; enemy3.x = 0; enemy4.x = 0; enemy5.x = 0; 
+    //enemy1.y = 0; enemy2.y = 0; enemy3.y = 0; enemy4.y = 0; enemy5.y = 0; 
+    //enemyBullet1.x = 0; enemyBullet2.x = 0; enemyBullet3.x = 0; enemyBullet4.x = 0; enemyBullet5.x = 0; 
+    //enemyBullet1.y = 0; enemyBullet2.y = 0; enemyBullet3.y = 0; enemyBullet4.y = 0; enemyBullet5.y = 0; 
+    //player.x = 0; player.y = 0;
+    //bullet.x = 0; player.y =0;
+    gui.displayLose();
+    gameOver = true;
+}
+    // Restart
+void restartGame()
+{
+    gui.lives = 3;
+    gui.level = 1;
+    gui.score = 0;
+    
+    resetPosition = true;
+    
+    gui.setColor(color(0,255,0));
+    enemy1.setColor(color(255,0,0)); enemy2.setColor(color(255,0,0)); enemy3.setColor(color(255,0,0)); enemy4.setColor(color(255,0,0)); enemy5.setColor(color(255,0,0));
+    enemyBullet1.setColor(color(255,0,0)); enemyBullet2.setColor(color(255,0,0)); enemyBullet3.setColor(color(255,0,0)); enemyBullet4.setColor(color(255,0,0)); enemyBullet5.setColor(color(255,0,0));
+    player.setColor(255);
+    bullet.setColor(255);
+}
+  
 void keyReleased()
 {
   if (keyCode == LEFT)
@@ -167,6 +304,11 @@ void keyReleased()
  
 void keyPressed()
 {
+  if (keyPressed && gameOver)
+  {
+    restartGame();
+    gameOver = false;
+  }
   if(key == ' ')
     bulletFired = true;
   if (keyCode == LEFT)

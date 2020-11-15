@@ -18,5 +18,8 @@ class Player{
     rect(x, y, size, size);
     noFill();
   }
+  void setColor(color c){
+    this.c = c;
+  }
 
 }

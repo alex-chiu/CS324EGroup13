@@ -22,4 +22,8 @@ class Bullet{
     y += 1;
   }
   
+  void setColor(color c){
+    this.c = c;
+  }
+    
 }

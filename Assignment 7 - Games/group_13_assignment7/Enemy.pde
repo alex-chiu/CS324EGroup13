@@ -22,4 +22,9 @@ class Enemy{
   void move(){
     y += 0.25;
   }
+  
+  void setColor(color c){
+    this.c = c;
+  }
+    
 }
