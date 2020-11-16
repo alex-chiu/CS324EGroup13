@@ -1,0 +1,10 @@
+Enemy And Enemy Bullet Collision With Player
+- right now when the player collides with an enemy or an enemy bullet, the player's x-position is moved to -50
+
+Cheap Bullet Strategy
+- the player is able to move with the bullet and can touch the enemies with the bullet without ever firing it with spacebar
+- quick fix: maybe a boolean isActive (bullet's y-position is certain distance away from player y-position) when firing the bullet and collision only takes place when    isActive is true
+
+Pause Functionality?
+- setting all movespeeds to 0
+- disable all keys except for P or mouseclick to continue
