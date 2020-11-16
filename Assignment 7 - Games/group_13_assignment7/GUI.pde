@@ -40,13 +40,13 @@ class GUI{
       void displayWin(){
       textSize(40);
       fill(color(255,0,0));
-      text("YOU WON!!! - press any key to restart", x4, y4); 
+      text("YOU WON!!! - press R to restart", x4, y4); 
       noFill();
     }
     void displayLose(){
       textSize(40);
       fill(color(255,0,0));
-      text("GAME OVER - press any key to restart", x4, y4); 
+      text("GAME OVER - press R to restart", x4, y4); 
       noFill();
     }
 }

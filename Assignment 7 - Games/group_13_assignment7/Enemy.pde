@@ -3,7 +3,7 @@ class Enemy{
   float y = 400;
   float velX = 0;
   float velY = 0;
-  float movespeed = 5;
+  float movespeed = 0.25;
   float size = 50;
   color c;
   
@@ -20,7 +20,7 @@ class Enemy{
   }
 
   void move(){
-    y += 0.25;
+    y += movespeed;
   }
   
   void setColor(color c){

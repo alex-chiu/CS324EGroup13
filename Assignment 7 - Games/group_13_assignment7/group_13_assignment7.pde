@@ -12,6 +12,7 @@ int time = millis();
 Bullet bullet, enemyBullet1, enemyBullet2, enemyBullet3, enemyBullet4, enemyBullet5;
 Player player;
 Enemy enemy1, enemy2, enemy3, enemy4, enemy5;
+Earth earth1, earth2, earth3, earth4, earth5;
 GUI gui;
 
 void setup()
@@ -19,18 +20,25 @@ void setup()
   size(800, 600);
   frameRate(60);
   player = new Player(350, 400, 0, 0, 5, 50, color(255));
-  bullet = new Bullet(player.x + player.size / 2, player.y, 10, color(255));
-  enemy1 = new Enemy(150, 50, 0, 0, 5, 50, color(255,0,0));
-  enemy2 = new Enemy(250, 50, 0, 0, 5, 50, color(255,0,0));
-  enemy3 = new Enemy(350, 50, 0, 0, 5, 50, color(255,0,0));
-  enemy4 = new Enemy(450, 50, 0, 0, 5, 50, color(255,0,0));
-  enemy5 = new Enemy(550, 50, 0, 0, 5, 50, color(255,0,0));
-  enemyBullet1 = new Bullet(enemy1.x + enemy1.size / 2, enemy1.y + enemy1.size, 10, color(255, 0, 0));
-  enemyBullet2 = new Bullet(enemy2.x + enemy2.size / 2, enemy2.y + enemy2.size, 10, color(255, 0, 0));
-  enemyBullet3 = new Bullet(enemy3.x + enemy3.size / 2, enemy3.y + enemy3.size, 10, color(255, 0, 0));
-  enemyBullet4 = new Bullet(enemy4.x + enemy4.size / 2, enemy4.y + enemy4.size, 10, color(255, 0, 0));
-  enemyBullet5 = new Bullet(enemy5.x + enemy5.size / 2, enemy5.y + enemy5.size, 10, color(255, 0, 0));
+  bullet = new Bullet(player.x + player.size / 2, player.y, 10, color(255), -10);
+  enemy1 = new Enemy(150, 50, 0, 0, 0.25, 50, color(255,0,0));
+  enemy2 = new Enemy(250, 50, 0, 0, 0.25, 50, color(255,0,0));
+  enemy3 = new Enemy(350, 50, 0, 0, 0.25, 50, color(255,0,0));
+  enemy4 = new Enemy(450, 50, 0, 0, 0.25, 50, color(255,0,0));
+  enemy5 = new Enemy(550, 50, 0, 0, 0.25, 50, color(255,0,0));
+  enemyBullet1 = new Bullet(enemy1.x + enemy1.size / 2, enemy1.y + enemy1.size, 10, color(255, 0, 0), 1);
+  enemyBullet2 = new Bullet(enemy2.x + enemy2.size / 2, enemy2.y + enemy2.size, 10, color(255, 0, 0), 1);
+  enemyBullet3 = new Bullet(enemy3.x + enemy3.size / 2, enemy3.y + enemy3.size, 10, color(255, 0, 0), 1);
+  enemyBullet4 = new Bullet(enemy4.x + enemy4.size / 2, enemy4.y + enemy4.size, 10, color(255, 0, 0), 1);
+  enemyBullet5 = new Bullet(enemy5.x + enemy5.size / 2, enemy5.y + enemy5.size, 10, color(255, 0, 0), 1);
   gui = new GUI(10, 30, 0, 10, 60, 3, 670, 30, 1, 30, height/2, color(0,255,0));
+  
+  // Earth
+  earth1 = new Earth(175, 550, 50, color(255,0,0));
+  earth2 = new Earth(275, 550, 50, color(0,255,0));
+  earth3 = new Earth(375, 550, 50, color(255,255,0));
+  earth4 = new Earth(475, 550, 50, color(0,0,255));
+  earth5 = new Earth(575, 550, 50, color(255,165,0));
   smooth();
 }
 
@@ -38,6 +46,9 @@ void draw()
 {
   background(0);
   noStroke();
+   
+  // Earth
+  earth1.display(); earth2.display(); earth3.display(); earth4.display(); earth5.display(); 
    
   // GUI
   gui.display();
@@ -54,24 +65,32 @@ void draw()
     gui.level = 2;
     resetPosition = true;
     gui.score += 0.1;
+    enemy1.movespeed += 0.25; enemy2.movespeed += 0.25; enemy3.movespeed += 0.25; enemy4.movespeed += 0.25; enemy5.movespeed += 0.25;
+    enemyBullet1.movespeed += 0.25; enemyBullet2.movespeed += 0.25; enemyBullet3.movespeed += 0.25; enemyBullet4.movespeed += 0.25; enemyBullet5.movespeed += 0.25;
   }
   if (gui.score == 100)
   {
     gui.level = 3;
     resetPosition = true;
     gui.score += 0.1;
+    enemy1.movespeed += 0.25; enemy2.movespeed += 0.25; enemy3.movespeed += 0.25; enemy4.movespeed += 0.25; enemy5.movespeed += 0.25;
+    enemyBullet1.movespeed += 0.25; enemyBullet2.movespeed += 0.25; enemyBullet3.movespeed += 0.25; enemyBullet4.movespeed += 0.25; enemyBullet5.movespeed += 0.25;
   }  
   if (gui.score == 150)
   {
     gui.level = 4;
     resetPosition = true;
     gui.score += 0.1;
+    enemy1.movespeed += 0.25; enemy2.movespeed += 0.25; enemy3.movespeed += 0.25; enemy4.movespeed += 0.25; enemy5.movespeed += 0.25;
+    enemyBullet1.movespeed += 0.25; enemyBullet2.movespeed += 0.25; enemyBullet3.movespeed += 0.25; enemyBullet4.movespeed += 0.25; enemyBullet5.movespeed += 0.25;
   }
   if (gui.score == 200)
   {
     gui.level = 5;
     resetPosition = true;
     gui.score += 0.1;
+    enemy1.movespeed += 0.25; enemy2.movespeed += 0.25; enemy3.movespeed += 0.25; enemy4.movespeed += 0.25; enemy5.movespeed += 0.25;
+    enemyBullet1.movespeed += 0.25; enemyBullet2.movespeed += 0.25; enemyBullet3.movespeed += 0.25; enemyBullet4.movespeed += 0.25; enemyBullet5.movespeed += 0.25;
   }
   if (gui.score == 250)
   {
@@ -210,6 +229,28 @@ void draw()
     resetBullet();
   }
 
+  // Enemy and Earth Collision
+  if (earth1.y - earth1.radius/2 <= enemy1.y + enemy1.size)
+  { 
+    lose();
+  }
+  if (earth2.y - earth2.radius/2 <= enemy2.y + enemy2.size)
+  { 
+    lose();
+  }
+  if (earth3.y - earth3.radius/2 <= enemy3.y + enemy3.size)
+  { 
+    lose();
+  }
+  if (earth4.y - earth4.radius/2 <= enemy4.y + enemy4.size)
+  { 
+    lose();
+  }
+  if (earth5.y - earth5.radius/2 <= enemy5.y + enemy5.size)
+  { 
+    lose();
+  }
+  
   // Setting World Bounds
   if (player.x <= 0)
     player.x = 0;
@@ -247,12 +288,14 @@ void win()
     enemyBullet1.setColor(0); enemyBullet2.setColor(0); enemyBullet3.setColor(0); enemyBullet4.setColor(0); enemyBullet5.setColor(0);
     player.setColor(0);
     bullet.setColor(0);
-    //enemy1.x = 0; enemy2.x = 0; enemy3.x = 0; enemy4.x = 0; enemy5.x = 0; 
-    //enemy1.y = 0; enemy2.y = 0; enemy3.y = 0; enemy4.y = 0; enemy5.y = 0; 
-    //enemyBullet1.x = 0; enemyBullet2.x = 0; enemyBullet3.x = 0; enemyBullet4.x = 0; enemyBullet5.x = 0; 
-    //enemyBullet1.y = 0; enemyBullet2.y = 0; enemyBullet3.y = 0; enemyBullet4.y = 0; enemyBullet5.y = 0; 
-    //player.x = 0; player.y = 0;
-    //bullet.x = 0; player.y =0;
+    earth1.setColor(0); earth2.setColor(0); earth3.setColor(0); earth4.setColor(0); earth5.setColor(0);
+
+    enemy1.movespeed = 0; enemy2.movespeed = 0; enemy3.movespeed = 0; enemy4.movespeed = 0; enemy5.movespeed = 0;
+    enemyBullet1.movespeed = 0; enemyBullet2.movespeed = 0; enemyBullet3.movespeed = 0; enemyBullet4.movespeed = 0; enemyBullet5.movespeed = 0;
+        
+    player.x = 350; player.y = 400;
+    bullet.x = player.x + player.size / 2; bullet.y = player.y;
+    
     gui.displayWin();
     gameOver = true;
 }
@@ -265,12 +308,14 @@ void lose()
     enemyBullet1.setColor(0); enemyBullet2.setColor(0); enemyBullet3.setColor(0); enemyBullet4.setColor(0); enemyBullet5.setColor(0);
     player.setColor(0);
     bullet.setColor(0);
-    //enemy1.x = 0; enemy2.x = 0; enemy3.x = 0; enemy4.x = 0; enemy5.x = 0; 
-    //enemy1.y = 0; enemy2.y = 0; enemy3.y = 0; enemy4.y = 0; enemy5.y = 0; 
-    //enemyBullet1.x = 0; enemyBullet2.x = 0; enemyBullet3.x = 0; enemyBullet4.x = 0; enemyBullet5.x = 0; 
-    //enemyBullet1.y = 0; enemyBullet2.y = 0; enemyBullet3.y = 0; enemyBullet4.y = 0; enemyBullet5.y = 0; 
-    //player.x = 0; player.y = 0;
-    //bullet.x = 0; player.y =0;
+    earth1.setColor(0); earth2.setColor(0); earth3.setColor(0); earth4.setColor(0); earth5.setColor(0);
+
+    enemy1.movespeed = 0; enemy2.movespeed = 0; enemy3.movespeed = 0; enemy4.movespeed = 0; enemy5.movespeed = 0;
+    enemyBullet1.movespeed = 0; enemyBullet2.movespeed = 0; enemyBullet3.movespeed = 0; enemyBullet4.movespeed = 0; enemyBullet5.movespeed = 0;
+        
+    player.x = 350; player.y = 400;
+    bullet.x = player.x + player.size / 2; bullet.y = player.y;
+    
     gui.displayLose();
     gameOver = true;
 }
@@ -280,14 +325,21 @@ void restartGame()
     gui.lives = 3;
     gui.level = 1;
     gui.score = 0;
+    numEnemiesKilled = 0;
     
     resetPosition = true;
     
+    // resetting colors
     gui.setColor(color(0,255,0));
     enemy1.setColor(color(255,0,0)); enemy2.setColor(color(255,0,0)); enemy3.setColor(color(255,0,0)); enemy4.setColor(color(255,0,0)); enemy5.setColor(color(255,0,0));
     enemyBullet1.setColor(color(255,0,0)); enemyBullet2.setColor(color(255,0,0)); enemyBullet3.setColor(color(255,0,0)); enemyBullet4.setColor(color(255,0,0)); enemyBullet5.setColor(color(255,0,0));
     player.setColor(255);
     bullet.setColor(255);
+    earth1.setColor(color(255,0,0)); earth2.setColor(color(0,255,0)); earth3.setColor(color(255,255,0)); earth4.setColor(color(0,0,255)); earth5.setColor(color(255,165,0));
+    
+    // reset speed
+    enemy1.movespeed = 0.25; enemy2.movespeed = 0.25; enemy3.movespeed = 0.25; enemy4.movespeed = 0.25; enemy5.movespeed = 0.25;
+    enemyBullet1.movespeed = 1; enemyBullet2.movespeed = 1; enemyBullet3.movespeed = 1; enemyBullet4.movespeed = 1; enemyBullet5.movespeed = 1;
 }
   
 void keyReleased()
@@ -304,7 +356,7 @@ void keyReleased()
  
 void keyPressed()
 {
-  if (keyPressed && gameOver)
+  if (key == 'r' && gameOver)
   {
     restartGame();
     gameOver = false;

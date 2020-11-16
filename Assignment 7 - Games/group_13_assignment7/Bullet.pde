@@ -1,12 +1,14 @@
 class Bullet{
   float x, y, radius;
   color c;
+  float movespeed;
   
-  Bullet(float x, float y, float radius, color c){
+  Bullet(float x, float y, float radius, color c, float movespeed){
     this.x = x;
     this.y = y; 
     this.radius = radius;
     this.c = c;
+    this.movespeed = movespeed;
   }
   
   void display(){
@@ -19,7 +21,7 @@ class Bullet{
   }
   
   void enemyUpdate(){
-    y += 1;
+    y += movespeed;
   }
   
   void setColor(color c){
