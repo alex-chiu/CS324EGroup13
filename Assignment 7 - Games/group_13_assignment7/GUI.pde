@@ -1,19 +1,23 @@
 class GUI{
-  float x1, y1, x2, y2, x3, y3, x4, y4;
+  float x1, y1, x2, y2, x3, y3;
   float score, lives, level;
   color c;
+  boolean resetPos, resetEBulletPos;
   
-  GUI(float x1, float y1, int score, float x2, float y2, int lives, float x3, float y3, int level, float x4, float y4, color c){
+  // Constructor
+  GUI(float x1, float y1, int score, float x2, float y2, int lives, float x3, float y3, int level, color c) {
     this.x1 = x1; this.y1 = y1; this.score = score;
     this.x2 = x2; this.y2 = y2; this.lives = lives;
     this.x3 = x3; this.y3 = y3; this.level = level;
-    this.x4 = x4; this.y4 = y4;
     this.c = c;
-    
+    resetPos = false;
+    resetEBulletPos = false;
   }
   
-  void display(){
-
+  // Draws GUI Elements
+  void display() {
+    textAlign(LEFT);
+    
     // Score
     textSize(32);
     fill(c);
@@ -31,22 +35,39 @@ class GUI{
     fill(c);
     text("Level: " + int(level), x3, y3); 
     noFill();
-    
   }
   
-    void setColor(color c){
-      this.c = c;
+  // Displays Win Screen
+  void displayWin() {
+    textSize(40);
+    fill(color(255,0,0));
+    textAlign(CENTER);
+    text("YOU WON!!! - Press R to Restart", width/2, height/2); 
+    noFill();
+  }
+  
+  // Displays Loss Screen
+  void displayLose() {
+    textSize(40);
+    fill(color(255, 0, 0));
+    textAlign(CENTER);
+    text("GAME OVER - Press R to Restart", width/2, height/2); 
+    noFill();
+  }
+  
+  // Checks the Score
+  int checkScore() {
+    if (score == 250) {
+      return 2;
     }
-      void displayWin(){
-      textSize(40);
-      fill(color(255,0,0));
-      text("YOU WON!!! - press R to restart", x4, y4); 
-      noFill();
+    else if (score == 200 || score == 150 || score == 100 || score == 50) {
+      level = (score + 50) / 50;
+      resetPos = true;
+      score += 0.1;
+      return 1;
     }
-    void displayLose(){
-      textSize(40);
-      fill(color(255,0,0));
-      text("GAME OVER - press R to restart", x4, y4); 
-      noFill();
+    else {
+      return 0;
     }
+  }
 }

@@ -1,4 +1,4 @@
-class Enemy{
+class Enemy {
   float x = 350;
   float y = 400;
   float velX = 0;
@@ -6,25 +6,24 @@ class Enemy{
   float movespeed = 0.25;
   float size = 50;
   color c;
+  PImage img = loadImage("enemy.png");
   
+  // Constructor
   Enemy(float x, float y, float velX, float velY, float movespeed, float size, color c){
     this.x = x; this.y = y; this.velX = velX; 
     this.velY = velY; this.movespeed = movespeed; this.size = size;
     this.c = c;
+    img.resize(50, 50);
   }
   
-  void display(){
-    fill(c);
-    rect(x, y, size, size);
-    noFill();
+  // Draws Enemy
+  void display() {
+    imageMode(CORNER);
+    image(img, x, y);
   }
 
-  void move(){
+  // Moves Enemy
+  void move() {
     y += movespeed;
   }
-  
-  void setColor(color c){
-    this.c = c;
-  }
-    
 }

@@ -1,18 +1,18 @@
-class Earth{
+class Earth {
+  PImage img = loadImage("earth.png");
   float x, y, radius;
-  color c;
   
-  Earth(float x, float y, float radius, color c){
-    this.x = x; this.y = y; this.radius = radius;
-    this.c = c;
+  // Constructor
+  Earth(float _x, float _y, float _radius) {
+    x = _x;
+    y = _y;
+    radius = _radius;
+    img.resize(75, 75);
   }
   
-  void display(){
-    fill(c);
-    ellipse(x, y, radius, radius);
-    noFill();
-  }
-  void setColor(color c){
-    this.c = c;
+  // Draws Earth
+  void display() {
+    imageMode(CENTER);
+    image(img, x, y);
   }
 }
