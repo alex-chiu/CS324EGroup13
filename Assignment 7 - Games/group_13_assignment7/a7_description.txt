@@ -1,0 +1,39 @@
+# C S 324E Group 13
+
+Assignment 7: Games
+
+Game Functionality:
+A Space Invaders-esque game, where a player must control a spaceship to defeat aliens before they can reach Earth.
+
+Rules of Play:
+1) Aliens move from the top of the screen downward, and shoot projectiles directly down as well.
+2) The player can move in 4 directions (up, down, left, right) and shoot laser back at the aliens.
+3) The player can clear a level by defeating all aliens.
+4) The aliens speed up with each level.
+5) The player loses a life if hit by an alien or alien laser.
+
+Win/Lose Conditions:
+
+Win:
+The player wins if they are able to defeat 5 levels of aliens, each of which moves faster and is more difficult than the last.
+
+Lose:
+The player loses if they lose all 3 lives (from being hit by aliens/lasers) or if an alien manages to reach Earth.
+
+Classes:
+Main Class: Main playable functionality for the game.
+Earth: Earth objects that the player must protect.
+Player: Player object that the player can control and use.
+Enemy: Enemy objects that the player must destroy.
+Bullet: Bullet objects that can be fired by either the player or enemies.
+
+Challenges:
+Development went fairly smoothly, for the most part.
+
+Member Work Division:
+Alex: Main, Enemy, Final Polish
+Albert: Player, Bullet, Enemy
+Amar: Main, GUI
+
+Credits:
+All sprites/images used in the game are from free online sources.
