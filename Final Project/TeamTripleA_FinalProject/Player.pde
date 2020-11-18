@@ -1,13 +1,13 @@
 class Player {
-  float x, y, velX, velY, ms;
+  float x, y, vx, vy, ms;
   PImage ship = loadImage("spaceship.png");
   
   // Constructor
   Player (float _x, float _y) {
     x = _x;
     y = _y;
-    velX = 0;
-    velY = 0;
+    vx = 0;
+    vy = 0;
     ms = 5;
     ship.resize(50, 50);
   }
@@ -20,7 +20,7 @@ class Player {
   
   // Moves Ship
   void move() {
-    x += velX;
-    y += velY;
+    x += vx;
+    y += vy;
   }
 }

@@ -19,6 +19,9 @@ boolean scoreButtonOver = false;
 Star[] randomStars;
 Player player;
 
+// Player Movement Keys
+float up, down, left, right;
+
 void setup() {
   size(1200, 900);
   background(0);
@@ -65,7 +68,7 @@ void draw() {
       randomStars[i].move();
       randomStars[i].display();
     }
-    println(randomStars[0].y);
+
     // Game Name
     fill(50, 250, 25);
     textSize(128);
@@ -97,6 +100,18 @@ void draw() {
   // Game Scene
   else if (gameScene) {
     background(0);
+    
+    // Move and Draw Stars 
+    for (int i = 0; i < 100; i++) {
+      randomStars[i].move();
+      randomStars[i].display();
+    }
+    
+    // Move and Draw Player
+    player.vx = (right - left) * player.ms;
+    player.vy = (down - up) * player.ms;
+    player.move();
+    player.display();
     
   }
   // High Score Scene
@@ -135,6 +150,33 @@ void updateMenuButtons(float x, float y) {
 void keyPressed() {
   if (key == 'm') {
     pauseMusic = !pauseMusic;
+  }
+  if (keyCode == UP) {
+    up = 1;
+  }
+  if (keyCode == DOWN) {
+    down = 1;
+  }
+  if (keyCode == LEFT) {
+    left = 1;
+  }
+  if (keyCode == RIGHT) {
+    right = 1;
+  }
+}
+
+void keyReleased() {
+  if (keyCode == UP) {
+    up = 0;
+  }
+  if (keyCode == DOWN) {
+    down = 0;
+  }
+  if (keyCode == LEFT) {
+    left = 0;
+  }
+  if (keyCode == RIGHT) {
+    right = 0;
   }
 }
 
