@@ -11,6 +11,10 @@ boolean highScoreScene = false;
 // Music Control Flag
 boolean pauseMusic = false;
 
+// Button Boolean Flags
+boolean playButtonOver = false;
+boolean scoreButtonOver = false;
+
 void setup() {
   size(1200, 900);
   background(0);
@@ -25,6 +29,10 @@ void setup() {
   gameFont = createFont("airstrike.ttf", 32);
   textFont(gameFont);
   textAlign(CENTER, CENTER);
+  
+  // Overall Settings
+  noStroke();
+  smooth();
 }
 
 void draw() {
@@ -36,6 +44,11 @@ void draw() {
   if (menuScene) {
     background(0);
     
+    // Button Location Debug Rectangles
+    // fill(255);
+    // rect(width/2 - 80, 530, 170, 50);
+    //rect(width/2 - 210, 680, 430, 50);
+    
     // Game Name
     fill(50, 250, 25);
     textSize(128);
@@ -46,14 +59,32 @@ void draw() {
     textSize(24);
     text("Press M to Mute", 125, height - 25);
     
+    // Other Screen Buttons
+    updateMenuButtons(mouseX, mouseY);
+    textSize(64);
+    if (playButtonOver) {
+      fill(250, 225, 25); 
+    }
+    else {
+      fill(50, 250, 25);
+    }
+    text("Play", width/2, 550);
+    if (scoreButtonOver) {
+      fill(250, 225, 25); 
+    }
+    else {
+      fill(50, 250, 25);
+    }
+    text("High Scores", width/2, 700);
   }
   // Game Scene
   else if (gameScene) {
+    background(0);
     
   }
   // High Score Scene
   else if (highScoreScene) {
-    
+    background(0);
   }
 }
 
@@ -67,9 +98,40 @@ void checkMusic() {
   }
 }
 
+// Updates Menu Button Flags
+void updateMenuButtons(float x, float y) {
+  if (x >= width/2 - 80 && x <= width/2 + 90 && y >= 530 && y <= 580) {
+    playButtonOver = true;
+  }
+  else {
+    playButtonOver = false;
+  }
+  if (x >= width/2 - 210 && x <= width/2 + 220 && y >= 680 && y <= 730) {
+    scoreButtonOver = true;
+  }
+  else {
+    scoreButtonOver = false;
+  }
+}
+
 // Keyboard Input
 void keyPressed() {
   if (key == 'm') {
     pauseMusic = !pauseMusic;
+  }
+}
+
+// Mouse Input
+void mouseClicked() {
+ // Menu Screen Mouse Input
+ if (menuScene) {
+    if (mouseX >= width/2 - 80 && mouseX <= width/2 + 90 && mouseY >= 530 && mouseY <= 580) {
+      menuScene = false;
+      gameScene = true;
+    }
+    if (mouseX >= width/2 - 210 && mouseX <= width/2 + 220 && mouseY >= 680 && mouseY <= 730) {
+      menuScene = false;
+      highScoreScene = true;
+    }
   }
 }
