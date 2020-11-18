@@ -15,6 +15,10 @@ boolean pauseMusic = false;
 boolean playButtonOver = false;
 boolean scoreButtonOver = false;
 
+// Game Objects
+Star[] randomStars;
+Player player;
+
 void setup() {
   size(1200, 900);
   background(0);
@@ -29,6 +33,13 @@ void setup() {
   gameFont = createFont("airstrike.ttf", 32);
   textFont(gameFont);
   textAlign(CENTER, CENTER);
+  
+  // Initialize Game Objects
+  randomStars = new Star[100];
+  for (int i = 0; i < 100; i++) {
+    randomStars[i] = new Star(random(1200), random(900), 0, random(1) * -1);
+  }
+  player = new Player(width/2, 800);
   
   // Overall Settings
   noStroke();
@@ -47,8 +58,14 @@ void draw() {
     // Button Location Debug Rectangles
     // fill(255);
     // rect(width/2 - 80, 530, 170, 50);
-    //rect(width/2 - 210, 680, 430, 50);
+    // rect(width/2 - 210, 680, 430, 50);
     
+    // Move and Draw Stars 
+    for (int i = 0; i < 100; i++) {
+      randomStars[i].move();
+      randomStars[i].display();
+    }
+    println(randomStars[0].y);
     // Game Name
     fill(50, 250, 25);
     textSize(128);
