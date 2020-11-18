@@ -3,6 +3,10 @@ import processing.sound.*;
 SoundFile menuMusic;
 PFont gameFont;
 
+// High Score File
+XML scoreXML;
+XML[] scoreChildren;
+
 // Scene Change Flags
 boolean menuScene = true;
 boolean gameScene = false;
@@ -36,6 +40,10 @@ void setup() {
   gameFont = createFont("airstrike.ttf", 32);
   textFont(gameFont);
   textAlign(CENTER, CENTER);
+  
+  // Load High Score Data
+  scoreXML = loadXML("scores.xml");
+  scoreChildren = scoreXML.getChildren("player");
   
   // Initialize Game Objects
   randomStars = new Star[100];
@@ -117,6 +125,28 @@ void draw() {
   // High Score Scene
   else if (highScoreScene) {
     background(0);
+    
+    // Move and Draw Stars 
+    for (int i = 0; i < 100; i++) {
+      randomStars[i].move();
+      randomStars[i].display();
+    }
+    
+    // High Score Text
+    fill(50, 250, 25);
+    textSize(64);
+    textAlign(CENTER, CENTER);
+    text("High Scores", width/2, 100);
+    
+    textSize(48);
+    for (int i = 0; i < scoreChildren.length; i++) {
+      textAlign(LEFT, CENTER);
+      text(scoreChildren[i].getInt("rank") + ". ", 150, 70 * i + 200);
+      text(scoreChildren[i].getString("name"), 250, 70 * i + 200);
+      text("Pts", 975, 70 * i + 200);
+      textAlign(RIGHT, CENTER);
+      text(scoreChildren[i].getInt("score"), 925, 70 * i + 200);
+    }
   }
 }
 
@@ -151,31 +181,31 @@ void keyPressed() {
   if (key == 'm') {
     pauseMusic = !pauseMusic;
   }
-  if (keyCode == UP) {
+  if (key == 'w') {
     up = 1;
   }
-  if (keyCode == DOWN) {
+  if (key == 's') {
     down = 1;
   }
-  if (keyCode == LEFT) {
+  if (key == 'a') {
     left = 1;
   }
-  if (keyCode == RIGHT) {
+  if (key == 'd') {
     right = 1;
   }
 }
 
 void keyReleased() {
-  if (keyCode == UP) {
+  if (key == 'w') {
     up = 0;
   }
-  if (keyCode == DOWN) {
+  if (key == 's') {
     down = 0;
   }
-  if (keyCode == LEFT) {
+  if (key == 'a') {
     left = 0;
   }
-  if (keyCode == RIGHT) {
+  if (key == 'd') {
     right = 0;
   }
 }

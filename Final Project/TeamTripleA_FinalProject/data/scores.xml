@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<highscores>
+    <player rank="1" name="P1" score="1000">P1</player>
+    <player rank="2" name="P2" score="900">P2</player>
+    <player rank="3" name="P3" score="800">P3</player>
+    <player rank="4" name="P4" score="700">P4</player>
+    <player rank="5" name="P5" score="600">P5</player>
+    <player rank="6" name="P6" score="500">P6</player>
+    <player rank="7" name="P7" score="400">P7</player>
+    <player rank="8" name="P8" score="300">P8</player>
+    <player rank="9" name="P9" score="200">P9</player>
+    <player rank="10" name="P10" score="100">P10</player>
+</highscores>
