@@ -20,8 +20,9 @@ class Star {
     x += vx;
     y += vy; 
     
-    if (y <= 0) {
-      y = height; 
+    if (y >= height) {
+      y = 0; 
+      vy = random(1);
     }
   }
 }

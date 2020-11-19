@@ -46,9 +46,9 @@ void setup() {
   scoreChildren = scoreXML.getChildren("player");
   
   // Initialize Game Objects
-  randomStars = new Star[100];
-  for (int i = 0; i < 100; i++) {
-    randomStars[i] = new Star(random(1200), random(900), 0, random(1) * -1);
+  randomStars = new Star[150];
+  for (int i = 0; i < randomStars.length; i++) {
+    randomStars[i] = new Star(random(1200), random(900), 0, random(1));
   }
   player = new Player(width/2, 800);
   
@@ -72,7 +72,7 @@ void draw() {
     // rect(width/2 - 210, 680, 430, 50);
     
     // Move and Draw Stars 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < randomStars.length; i++) {
       randomStars[i].move();
       randomStars[i].display();
     }

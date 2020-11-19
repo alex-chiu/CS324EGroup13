@@ -22,5 +22,18 @@ class Player {
   void move() {
     x += vx;
     y += vy;
+    
+    if (x <= 25) {
+      x = 25;
+    }
+    else if (x >= width - 25) {
+      x = width - 25;
+    }
+    if (y <= 25) {
+      y = 25; 
+    }
+    else if (y >= height - 25) {
+      y = height - 25;
+    }
   }
 }
