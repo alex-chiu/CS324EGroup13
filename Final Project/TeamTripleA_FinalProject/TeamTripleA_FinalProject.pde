@@ -20,15 +20,19 @@ boolean playButtonOver = false;
 boolean scoreButtonOver = false;
 boolean hsBackButtonOver = false;
 
+// Bullet Boolean Flags
+boolean bulletFired = false;
+
 // Game Objects
 Star[] randomStars;
 Player player;
+Bullet bullet;
 
 // Player Movement Keys
 float up, down, left, right;
 
 void setup() {
-  size(1200, 900);
+  size(1200, 700);
   background(0);
   
   // Load Game Music
@@ -52,7 +56,7 @@ void setup() {
     randomStars[i] = new Star(random(1200), random(900), 0, random(1));
   }
   player = new Player(width/2, 800);
-  
+  bullet = new Bullet(player.x / 2, player.y, 10, color(255), 10);
   // Overall Settings
   noStroke();
   smooth();
@@ -123,6 +127,20 @@ void draw() {
     player.move();
     player.display();
     
+    // Bullet Functionality
+    bullet.display();
+    if (!bulletFired) {
+      bullet.visible = false;
+      bullet.x = player.x;
+      bullet.y = player.y - 5;
+    }
+    if (bulletFired) {  
+      bullet.visible = true;
+      bullet.update();
+    }
+    if (bullet.y <= 0) {
+      resetBullet();
+    }
   }
   // High Score Scene
   else if (highScoreScene) {
@@ -165,6 +183,14 @@ void draw() {
   }
 }
 
+// Reset the Player's Bullet
+void resetBullet() {
+    bulletFired = false;
+    bullet.visible = false;
+    bullet.x = player.x;
+    bullet.y = player.y - 5;
+}
+
 // Check Music Playback
 void checkMusic() {
   if (menuMusic.isPlaying() && pauseMusic) {
@@ -205,6 +231,9 @@ void updateHSButtons(float x, float y) {
 void keyPressed() {
   if (key == 'm') {
     pauseMusic = !pauseMusic;
+  }
+  if(key == ' ') {
+    bulletFired = true;
   }
   if (key == 'w') {
     up = 1;
