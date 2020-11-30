@@ -18,6 +18,7 @@ boolean pauseMusic = false;
 // Button Boolean Flags
 boolean playButtonOver = false;
 boolean scoreButtonOver = false;
+boolean hsBackButtonOver = false;
 
 // Game Objects
 Star[] randomStars;
@@ -80,6 +81,7 @@ void draw() {
     // Game Name
     fill(50, 250, 25);
     textSize(128);
+    textAlign(CENTER, CENTER);
     text("GALACTIC", width/2, 100);
     text("INVADERS", width/2, 200);
     
@@ -125,6 +127,19 @@ void draw() {
   // High Score Scene
   else if (highScoreScene) {
     background(0);
+    
+    // Button Location Debug Rectangles
+    // fill(255);
+    // rect(25, 20, 130, 32);
+    
+    updateHSButtons(mouseX, mouseY);
+    if (hsBackButtonOver) {
+      fill(250, 225, 25); 
+    }
+    else {
+      fill(50, 250, 25);
+    }
+    text("Back", 150, 30);
     
     // Move and Draw Stars 
     for (int i = 0; i < 100; i++) {
@@ -176,6 +191,16 @@ void updateMenuButtons(float x, float y) {
   }
 }
 
+// Updates High Score Scene Button Flags
+void updateHSButtons(float x, float y) {
+  if (x >= 25 && x <= 155 && y >= 20 && y <= 52) {
+    hsBackButtonOver = true;
+  }
+  else {
+    hsBackButtonOver = false;
+  }
+}
+
 // Keyboard Input
 void keyPressed() {
   if (key == 'm') {
@@ -221,6 +246,12 @@ void mouseClicked() {
     if (mouseX >= width/2 - 210 && mouseX <= width/2 + 220 && mouseY >= 680 && mouseY <= 730) {
       menuScene = false;
       highScoreScene = true;
+    }
+  }
+  else if (highScoreScene) {
+    if (mouseX >= 25 && mouseX <= 155 && mouseY >= 20 && mouseY <= 52) {
+      highScoreScene = false;
+      menuScene = true;
     }
   }
 }
