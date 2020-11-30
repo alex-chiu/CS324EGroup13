@@ -32,7 +32,7 @@ Bullet bullet;
 float up, down, left, right;
 
 void setup() {
-  size(1200, 700);
+  size(1200, 900);
   background(0);
   
   // Load Game Music
