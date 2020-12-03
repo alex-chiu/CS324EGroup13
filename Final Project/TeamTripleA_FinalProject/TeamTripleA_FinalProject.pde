@@ -161,6 +161,9 @@ void draw() {
     else if (right == 1) {
       player.displayMovingRight();
     }
+    else if (up == 1 || down == 1) {
+      player.displayMoving();
+    }
     else {
       player.display();
     }

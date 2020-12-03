@@ -1,6 +1,7 @@
 class Player {
   float x, y, vx, vy, ms;
-  PImage ship = loadImage("spaceship-moving.png");
+  PImage ship = loadImage("spaceship.png");
+  PImage shipMoving = loadImage("spaceship-moving.png");
   
   // Animation
   int numFrames = 4;
@@ -15,6 +16,7 @@ class Player {
     vy = 0;
     ms = 5;
     ship.resize(50, 50);
+    shipMoving.resize(50, 50);
     
     // Setup Move Left Animation
     x_sprite = new PImage[numFrames];
@@ -42,12 +44,19 @@ class Player {
   
   void displayMovingLeft(){
     int frame = (frameCount / 10) % numFrames; //change number after divide sign for faster/slower rotation: higher number = slower rotation, lower number = higher rotation
+    imageMode(CENTER);
     image(x_sprite[frame], x, y);
   }
   
-    void displayMovingRight(){
+  void displayMovingRight(){
     int frame = (frameCount / 10) % numFrames; //change number after divide sign for faster/slower rotation: higher number = slower rotation, lower number = higher rotation
+    imageMode(CENTER);
     image(x_sprite2[frame], x, y);
+  }
+  
+  void displayMoving(){
+    imageMode(CENTER);
+    image(shipMoving, x, y);
   }
   
   // Moves Ship
