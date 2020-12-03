@@ -42,6 +42,7 @@ float up, down, left, right;
 
 void setup() {
   size(1200, 900);
+  frameRate(60);
   background(0);
   
   // Load Game Music
@@ -50,6 +51,7 @@ void setup() {
   menuMusic.cue(35);
   menuMusic.loop();
   
+  // Load Game SFX
   shipFireSFX = new SoundFile(this, "shipFire3.wav");
   explosionSFX = new SoundFile(this, "shipFire2.wav");
   earthCollisionSFX = new SoundFile(this, "shipFire.wav");
@@ -77,6 +79,7 @@ void setup() {
     earths[i] = new Earth(175 + 200 * i, 550, 50);
   }
   gui = new GUI(10, 30, 0, 10, 60, 3, 1050, 30, 1, color(0, 255, 0));
+  
   // Overall Settings
   noStroke();
   smooth();
@@ -152,8 +155,16 @@ void draw() {
     player.vx = (right - left) * player.ms;
     player.vy = (down - up) * player.ms;
     player.move();
-    player.display();
-    
+    if (left == 1) {
+        player.displayMovingLeft();
+    }
+    else if (right == 1) {
+      player.displayMovingRight();
+    }
+    else {
+      player.display();
+    }
+
     // GUI
     gui.display();
   
