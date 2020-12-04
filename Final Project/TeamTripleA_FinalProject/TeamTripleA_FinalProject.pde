@@ -75,7 +75,7 @@ void setup() {
   for (int i = 0; i < randomStars.length; i++) {
     randomStars[i] = new Star(random(1200), random(900), 0, random(1));
   }
-  player = new Player(width/2, 800);
+  player = new Player(width/2 - 25, 800);
   bullet = new Bullet(player.x / 2, player.y, 10, color(255), 10);
   for (int i = 0; i < 5; i++) {
     enemies[i] = new Enemy(150 + 200 * i, 50, 0, 0, 0.25, 50, color(255, 0, 0));
@@ -179,6 +179,8 @@ void draw() {
     // Lose Condition
     if (gui.lives <= 0) {
       lose();
+      if (!loseSFX.isPlaying())
+        loseSFX.play();
     }
   
     // Levels
@@ -239,7 +241,8 @@ void draw() {
     // Enemy Bullet and Player/Bound Collision
     for (int i = 0; i < enemyBullets.length; i++) {
       if (enemyBullets[i].y >= player.y - 25 && enemyBullets[i].y < player.y + 25 && enemyBullets[i].x >= player.x - 25 && enemyBullets[i].x <= player.x + 25) {
-        player.x = 50;
+        player.x = width/2 - 25;
+        player.y = 800;
         gui.lives -= 1;
         shipExplosionSFX.play();
       }
@@ -251,7 +254,8 @@ void draw() {
     // Player and Enemy Collision
     for (int i = 0; i < enemies.length; i++) {
       if (intersects(player.x - 25, player.y - 25, player.x + 25, player.y + 25, enemies[i].x, enemies[i].y, enemies[i].x + enemies[i].size, enemies[i].y + enemies[i].size)) {
-        player.x = 50;
+        player.x = width/2 - 25;
+        player.y = 800;
         gui.lives -= 1;
         shipExplosionSFX.play();
       }
@@ -271,7 +275,9 @@ void draw() {
     for (int i = 0; i < earths.length; i++) {
       if (earths[i].y - earths[i].radius / 2 <= enemies[i].y + enemies[i].size) {
         earthCollisionSFX.play();
-        lose(); 
+      lose(); 
+      if (!loseSFX.isPlaying())
+        loseSFX.play();
       }
     }
   
@@ -292,8 +298,6 @@ void draw() {
   // Draws Lose/Win Screens
   else if (lose) {
     gui.displayLose();
-    if (!loseSFX.isPlaying())
-      loseSFX.play();
   }
   else {
     gui.displayWin(); 
@@ -382,6 +386,8 @@ void lose() {
     for (int i = 0; i < enemies.length; i++) {
       enemies[i].movespeed = 0;
       enemyBullets[i].movespeed = 0;
+      enemies[i].x = 150 + 200 * i;
+      enemies[i].y = 50;
     }
         
     player.x = 350; player.y = 400;
@@ -394,7 +400,8 @@ void lose() {
 
 // Restart
 void restartGame() {
-    
+  player.x = width/2 - 25;
+  player.y = 800;
   gui.lives = 3;
   gui.level = 1;
   gui.score = 0;
@@ -404,7 +411,7 @@ void restartGame() {
   gui.resetEBulletPos = true;
     
   for (int i = 0; i < enemies.length; i++) {
-    enemies[i].movespeed = 00.25;
+    enemies[i].movespeed = 0.25;
     enemyBullets[i].movespeed = 1;
   }
 }
@@ -471,7 +478,7 @@ void keyPressed() {
   if (key == 'd') {
     right = 1;
   }
-  if ((key == 'w' || key == 's' || key == 'a' || key == 'd') && !thrusterSFX.isPlaying()) {
+  if (!thrusterSFX.isPlaying()) {
     thrusterSFX.play();
   }
 }
@@ -489,7 +496,7 @@ void keyReleased() {
   if (key == 'd') {
     right = 0;
   }
-  if ((key == 'w' || key == 's' || key == 'a' || key == 'd') && thrusterSFX.isPlaying()) {
+  if (thrusterSFX.isPlaying()) {
     thrusterSFX.stop();
   }
 }
