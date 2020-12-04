@@ -53,7 +53,7 @@ void setup() {
   
   // Load Game SFXv
   clickSFX = new SoundFile(this, "click.wav");
-  thrusterSFX = new SoundFile(this, "thruster.wav");
+  thrusterSFX = new SoundFile(this, "thruster2.wav");
   shipFireSFX = new SoundFile(this, "shipFire3.wav");
   explosionSFX = new SoundFile(this, "shipFire2.wav");
   earthCollisionSFX = new SoundFile(this, "shipFire.wav");
@@ -496,7 +496,7 @@ void keyReleased() {
   if (key == 'd') {
     right = 0;
   }
-  if (thrusterSFX.isPlaying()) {
+  if (!keyPressed && thrusterSFX.isPlaying()) {
     thrusterSFX.stop();
   }
 }
