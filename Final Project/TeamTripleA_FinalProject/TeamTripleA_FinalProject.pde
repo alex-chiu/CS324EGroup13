@@ -1,6 +1,6 @@
 // Art/Sound Setup
 import processing.sound.*;
-SoundFile menuMusic, shipFireSFX, explosionSFX, earthCollisionSFX;
+SoundFile menuMusic, shipFireSFX, explosionSFX, earthCollisionSFX, shipExplosionSFX, winSFX, loseSFX, clickSFX, thrusterSFX;
 PFont gameFont;
 
 // High Score File
@@ -51,10 +51,15 @@ void setup() {
   menuMusic.cue(35);
   menuMusic.loop();
   
-  // Load Game SFX
+  // Load Game SFXv
+  clickSFX = new SoundFile(this, "click.wav");
+  thrusterSFX = new SoundFile(this, "thruster.wav");
   shipFireSFX = new SoundFile(this, "shipFire3.wav");
   explosionSFX = new SoundFile(this, "shipFire2.wav");
   earthCollisionSFX = new SoundFile(this, "shipFire.wav");
+  shipExplosionSFX = new SoundFile(this, "explosion.wav");
+  winSFX = new SoundFile(this, "win.wav");
+  loseSFX = new SoundFile(this, "lose.wav");
   
   // Load Font
   gameFont = createFont("airstrike.ttf", 32);
@@ -236,6 +241,7 @@ void draw() {
       if (enemyBullets[i].y >= player.y - 25 && enemyBullets[i].y < player.y + 25 && enemyBullets[i].x >= player.x - 25 && enemyBullets[i].x <= player.x + 25) {
         player.x = 50;
         gui.lives -= 1;
+        shipExplosionSFX.play();
       }
       if (enemyBullets[i].y >= height - 100) {
         gui.resetEBulletPos = true; 
@@ -247,6 +253,7 @@ void draw() {
       if (intersects(player.x - 25, player.y - 25, player.x + 25, player.y + 25, enemies[i].x, enemies[i].y, enemies[i].x + enemies[i].size, enemies[i].y + enemies[i].size)) {
         player.x = 50;
         gui.lives -= 1;
+        shipExplosionSFX.play();
       }
     }
   
@@ -285,9 +292,13 @@ void draw() {
   // Draws Lose/Win Screens
   else if (lose) {
     gui.displayLose();
+    if (!loseSFX.isPlaying())
+      loseSFX.play();
   }
   else {
     gui.displayWin(); 
+    if (!winSFX.isPlaying())
+      winSFX.play();
   }
 }
   // High Score Scene
@@ -460,6 +471,9 @@ void keyPressed() {
   if (key == 'd') {
     right = 1;
   }
+  if ((key == 'w' || key == 's' || key == 'a' || key == 'd') && !thrusterSFX.isPlaying()) {
+    thrusterSFX.play();
+  }
 }
 
 void keyReleased() {
@@ -475,6 +489,9 @@ void keyReleased() {
   if (key == 'd') {
     right = 0;
   }
+  if ((key == 'w' || key == 's' || key == 'a' || key == 'd') && thrusterSFX.isPlaying()) {
+    thrusterSFX.stop();
+  }
 }
 
 // Mouse Input
@@ -484,16 +501,19 @@ void mouseClicked() {
     if (mouseX >= width/2 - 80 && mouseX <= width/2 + 90 && mouseY >= 530 && mouseY <= 580) {
       menuScene = false;
       gameScene = true;
+      clickSFX.play();
     }
     if (mouseX >= width/2 - 210 && mouseX <= width/2 + 220 && mouseY >= 680 && mouseY <= 730) {
       menuScene = false;
       highScoreScene = true;
+      clickSFX.play();
     }
   }
   else if (highScoreScene) {
     if (mouseX >= 25 && mouseX <= 155 && mouseY >= 20 && mouseY <= 52) {
       highScoreScene = false;
       menuScene = true;
+      clickSFX.play();
     }
   }
 }
