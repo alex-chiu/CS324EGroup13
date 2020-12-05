@@ -1,29 +1,64 @@
 class Enemy {
-  float x = 350;
-  float y = 400;
-  float velX = 0;
-  float velY = 0;
-  float movespeed = 0.25;
-  float size = 50;
-  color c;
-  PImage img = loadImage("enemy.png");
+  float x, y, vx, vy;
+  boolean alive;
+  PImage enemy = loadImage("enemy.png");
+  
+  // Bullets
+  ArrayList<Bullet> enemy_bullets = new ArrayList<Bullet>();
   
   // Constructor
-  Enemy(float x, float y, float velX, float velY, float movespeed, float size, color c){
-    this.x = x; this.y = y; this.velX = velX; 
-    this.velY = velY; this.movespeed = movespeed; this.size = size;
-    this.c = c;
-    img.resize(50, 50);
+  Enemy(float _x, float _y, float _vx, float _vy) {
+    x = _x;
+    y = _y;
+    vx = _vx;
+    vy = _vy;
+    alive = true;
+    
+    enemy.resize(50, 50);
   }
   
   // Draws Enemy
   void display() {
-    imageMode(CORNER);
-    image(img, x, y);
+    if (alive) {
+      imageMode(CENTER);
+      image(enemy, x, y);
+    }
   }
-
+  
   // Moves Enemy
   void move() {
-    y += movespeed;
+    x += vx;
+    y += vy;
+    
+    if (x <= 25) {
+      x = 25;
+      vx = -vx;
+    }
+    else if (x >= width - 25) {
+      x = width - 25;
+      vx = -vx;
+    }
+  }
+  
+  // Checks Bullet Collision
+  boolean checkBulletCollision(Bullet b) {
+    if ((b.x - 5 <= x + 25) && (b.x + 5 >= x - 25) && (b.y - 10 <= y + 25) && (b.y + 10 >= y - 25)) {
+      alive = false;
+      return true;
+    }
+    else {
+      return false; 
+    }
+  }
+  
+  // Checks Player Collision
+  boolean checkPlayerCollision(Player p) {
+    if ((p.x - 25 <= x + 25) && (p.x + 25 >= x - 25) && (p.y - 25 <= y + 25) && (p.y + 25 >= y - 25)) {
+      alive = false;
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

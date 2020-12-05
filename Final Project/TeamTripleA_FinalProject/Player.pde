@@ -5,8 +5,11 @@ class Player {
   
   // Animation
   int numFrames = 4;
-  PImage []x_sprite ;
-  PImage []x_sprite2;
+  PImage[] x_sprite;
+  PImage[] x_sprite2;
+  
+  // Bullets
+  ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   
   // Constructor
   Player (float _x, float _y) {
@@ -39,24 +42,18 @@ class Player {
   // Draws Player Ship
   void display() {
     imageMode(CENTER);
-    image(ship, x, y);
-  }
-  
-  void displayMovingLeft(){
-    int frame = (frameCount / 10) % numFrames; //change number after divide sign for faster/slower rotation: higher number = slower rotation, lower number = higher rotation
-    imageMode(CENTER);
-    image(x_sprite[frame], x, y);
-  }
-  
-  void displayMovingRight(){
-    int frame = (frameCount / 10) % numFrames; //change number after divide sign for faster/slower rotation: higher number = slower rotation, lower number = higher rotation
-    imageMode(CENTER);
-    image(x_sprite2[frame], x, y);
-  }
-  
-  void displayMoving(){
-    imageMode(CENTER);
-    image(shipMoving, x, y);
+    if (vx < 0) {
+      int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
+      image(x_sprite[frame], x, y);
+    }
+    else if (vx > 0) {
+      int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
+      image(x_sprite2[frame], x, y);
+    }
+    else {
+      imageMode(CENTER);
+      image(shipMoving, x, y);
+    }
   }
   
   // Moves Ship
@@ -75,6 +72,24 @@ class Player {
     }
     else if (y >= height - 25) {
       y = height - 25;
+    }
+  }
+  
+  // Fires a Bullet
+  void fire() {
+    Bullet b = new Bullet(x, y - 25, -10, false);
+    bullets.add(b);
+  }
+  
+  // Updates Bullet Positions
+  void updateBullets() {
+    for (int i = 0; i < bullets.size(); i++) {
+      bullets.get(i).move();
+      if ((bullets.get(i).y <= 0) || !bullets.get(i).visible) {
+        bullets.remove(i);
+        break;
+      }
+      bullets.get(i).display();
     }
   }
 }
