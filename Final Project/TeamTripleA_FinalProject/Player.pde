@@ -50,9 +50,13 @@ class Player {
       int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
       image(xSprite2[frame], x, y);
     }
-    else {
+    else if (vy != 0){
       imageMode(CENTER);
       image(shipMoving, x, y);
+    }
+    else{
+      imageMode(CENTER);
+      image(ship, x, y);
     }
   }
   

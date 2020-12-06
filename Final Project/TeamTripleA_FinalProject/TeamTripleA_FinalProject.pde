@@ -1,6 +1,8 @@
 // Art/Sound Setup
-import processing.sound.*;
-SoundFile menuMusic, click, shipFire, lose;
+import ddf.minim.*;
+Minim minim;
+AudioPlayer menuMusic, thruster;
+AudioSample click, shipFire, lose, shipExplosion, enemyExplosion;
 PFont gameFont;
 
 // High Score File
@@ -39,23 +41,23 @@ float up, down, left, right;
 
 void setup() {
   size(1200, 900);
+  frameRate(60);
   background(0);
   
   // Load Game Music
-  menuMusic = new SoundFile(this, "menuMusic.wav");
-  menuMusic.amp(0.25);
+  minim = new Minim(this);
+  menuMusic = minim.loadFile("menuMusic.wav");
   menuMusic.cue(35);
-  menuMusic.loop();
+  thruster = minim.loadFile("thruster2.wav");
   
   // Load Sound Effects
-  click = new SoundFile(this, "click.wav");
-  shipFire = new SoundFile(this, "shipFire.wav");
-  lose = new SoundFile(this, "lose.wav");
-  
+  click = minim.loadSample("click.wav", 512);
+  shipFire = minim.loadSample("shipFire.wav", 512);
+  lose = minim.loadSample("lose.wav", 512);
+  shipExplosion = minim.loadSample("explosion.wav", 512);
+  enemyExplosion = minim.loadSample("shipFire2.wav", 512);
+
   // Scale
-  click.amp(0.5);
-  shipFire.amp(0.5);
-  lose.amp(0.5);
   
   // Load Font
   gameFont = createFont("airstrike.ttf", 32);
@@ -177,14 +179,18 @@ void draw() {
         for (int j = 0; j < player.bullets.size(); j++) {
           if (currentEnemies.get(i).checkBulletCollision(player.bullets.get(j))) {
             player.bullets.get(j).visible = false;
+            enemyExplosion.trigger();
           }
         }
       
         // Check if Player hits Enemies
         if (currentEnemies.get(i).checkPlayerCollision(player)) {
           gui.lives -= 1;
+          player.x = width/2;
+          player.y = 800;
+          shipExplosion.trigger();
           if (gui.lives == 0) {
-            lose.play();
+            lose.trigger();
             gameOver = true; 
           }
         }
@@ -192,7 +198,7 @@ void draw() {
         // Check if Enemies Reach Bottom
         if (currentEnemies.get(i).y + 25 >= height) {
           currentEnemies.get(i).alive = false;
-          lose.play();
+          lose.trigger();
           gameOver = true; 
         }
       
@@ -336,6 +342,7 @@ void checkMusic() {
   }
   else if (!menuMusic.isPlaying() && !pauseMusic) {
     menuMusic.play(); 
+    menuMusic.loop();
   }
 }
 
@@ -375,8 +382,13 @@ void keyPressed() {
     right = 1;
   }
   if (key == ' ') {
-    shipFire.play();
+    shipFire.stop();
+    shipFire.trigger();
     player.fire(); 
+  }
+  if (!thruster.isPlaying()) {
+    thruster.play();
+    thruster.loop();
   }
   if (gameScene && gameOver && newHS && gui.initialCt < 2) {
     gui.hsInitials += key;
@@ -400,6 +412,9 @@ void keyReleased() {
   if (key == 'd') {
     right = 0;
   }
+  if (!keyPressed && thruster.isPlaying()) {
+    thruster.pause();
+  }
 }
 
 // Mouse Input
@@ -407,29 +422,29 @@ void mouseClicked() {
  // Menu Screen Mouse Input
  if (menuScene) {
     if (mouseX >= width/2 - 80 && mouseX <= width/2 + 90 && mouseY >= 530 && mouseY <= 580) {
-      click.play();
+      click.trigger();
       menuScene = false;
       gameScene = true;
     }
     if (mouseX >= width/2 - 210 && mouseX <= width/2 + 220 && mouseY >= 680 && mouseY <= 730) {
-      click.play();
+      click.trigger();
       menuScene = false;
       highScoreScene = true;
     }
   }
   else if (gameScene && gameOver) {
     if (mouseX >= width/2 - 290 && mouseX <= width/2 + 80 && mouseY >= 680 && mouseY <= 722) {
-      click.play();
+      click.trigger();
       resetGame();
     }
     else if (mouseX >= 60 && mouseX <= 250 && mouseY >= 680 && mouseY <= 722) {
-      click.play();
+      click.trigger();
       resetGame();
       gameScene = false;
       menuScene = true;
     }
     else if (mouseX >= 745 && mouseX <= 1165 && mouseY >= 680 && mouseY <= 722) {
-      click.play();
+      click.trigger();
       resetGame();
       gameScene = false;
       highScoreScene = true;
@@ -437,7 +452,7 @@ void mouseClicked() {
   }
   else if (highScoreScene) {
     if (mouseX >= 25 && mouseX <= 155 && mouseY >= 20 && mouseY <= 52) {
-      click.play();
+      click.trigger();
       highScoreScene = false;
       menuScene = true;
     }
