@@ -3,9 +3,6 @@ class Enemy {
   boolean alive;
   PImage enemy = loadImage("enemy.png");
   
-  // Bullets
-  ArrayList<Bullet> enemy_bullets = new ArrayList<Bullet>();
-  
   // Constructor
   Enemy(float _x, float _y, float _vx, float _vy) {
     x = _x;

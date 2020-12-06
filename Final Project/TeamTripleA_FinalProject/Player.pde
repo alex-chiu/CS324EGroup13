@@ -5,8 +5,8 @@ class Player {
   
   // Animation
   int numFrames = 4;
-  PImage[] x_sprite;
-  PImage[] x_sprite2;
+  PImage[] xSprite;
+  PImage[] xSprite2;
   
   // Bullets
   ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -22,19 +22,19 @@ class Player {
     shipMoving.resize(50, 50);
     
     // Setup Move Left Animation
-    x_sprite = new PImage[numFrames];
-    for(int i = 0; i < x_sprite.length; i++){
+    xSprite = new PImage[numFrames];
+    for(int i = 0; i < xSprite.length; i++){
       String imageName = "spaceship-moving-left-" + nf(i+1, 2) + ".png";
-      x_sprite[i] = loadImage(imageName);
-      x_sprite[i].resize(50,50);
+      xSprite[i] = loadImage(imageName);
+      xSprite[i].resize(50,50);
     }
     
     // Setup Move Right Animation
-    x_sprite2 = new PImage[numFrames];
-    for(int i = 0; i < x_sprite2.length; i++){
+    xSprite2 = new PImage[numFrames];
+    for(int i = 0; i < xSprite2.length; i++){
       String imageName = "spaceship-moving-right-" + nf(i+1, 2) + ".png";
-      x_sprite2[i] = loadImage(imageName);
-      x_sprite2[i].resize(50,50);
+      xSprite2[i] = loadImage(imageName);
+      xSprite2[i].resize(50,50);
     }
     
   }
@@ -44,11 +44,11 @@ class Player {
     imageMode(CENTER);
     if (vx < 0) {
       int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
-      image(x_sprite[frame], x, y);
+      image(xSprite[frame], x, y);
     }
     else if (vx > 0) {
       int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
-      image(x_sprite2[frame], x, y);
+      image(xSprite2[frame], x, y);
     }
     else {
       imageMode(CENTER);
