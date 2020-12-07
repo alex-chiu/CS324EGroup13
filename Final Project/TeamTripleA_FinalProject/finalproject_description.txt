@@ -1,0 +1,58 @@
+# C S 324E Group 13
+
+Final Project: Galactic Invaders
+
+Game Functionality:
+A Space Invaders-esque game, where a player must control a spaceship to defeat aliens before they can reach Earth.
+
+Rules of Play:
+1) Aliens move from the top of the screen downward in a series of waves.
+2) The player can move in 4 directions (up, down, left, right) and shoot lasers back at the aliens.
+3) The player can clear a level by defeating all aliens.
+4) The number of aliens and their movement changes with each level.
+5) The player loses a life if hit by an alien. The game also ends if an alien reaches the bottom of the screen.
+
+Win/Lose Conditions:
+
+Win:
+There is no win condition for the player necessarily. The aliens continue to come in waves until the player runs 
+out of lives or if they reach the bottom of the screen. The player must try to kill as many aliens as possible
+for the highest score.
+
+Lose:
+The player loses if they lose all 3 lives (from being hit by aliens) or if an alien manages to reach Earth.
+
+Classes:
+Main Class: Main playable functionality for the game.
+Player: Player object that the player can control and use.
+Enemy: Enemy objects that the player must destroy.
+Bullet: Bullet objects that can be fired by the player.
+GUI: GUI display system that contains information like level, lives, score, etc.
+Star: Background stars for ambiance.
+
+Additional Functionality:
+- The project implements keyboard interactivity, as the player must control their ship with the WASD keys and fire with 
+the space bar.
+- The project implements multiple GUI systems, with a main menu screen, a game screen, and a high score screen. From the 
+main menu screen, buttons allow a user to navigate to either the game or the high score screen. From the game screen, the
+player reaches a game over screen once they die, where they can choose to a) return to the menu, b) play again, or c) access
+the high scores. From the high score screen, the player can navigate back to the menu screen.
+- The project implements class objects with animation hierarchies. The most prominent example is the ship's shield, which 
+rotates around it as it moves on the screen. The shield is obtained every 3 levels, and can protect the player from one 
+collision with an enemy.
+- The project implements data input and output via a high score XML file. The game reads in the file when it is first initiated,
+and each time a player scores higher than the last score on the high score list, they can input their initials in order to be
+added to the list.
+- The project implements sound with the Minim extension, with multiple sound effects included for the ship's movement, lasers,
+background track, explosions, etc.
+
+Challenges:
+Development went fairly smoothly, for the most part. This project was mostly a continuation and refinement of our A7 work.
+
+Member Work Division:
+Alex: Main, Enemy, Star, Final Polish
+Albert: Player, Bullet
+Amar: Main, GUI
+
+Credits:
+All sprites/images/sounds used in the game are from free online sources.
