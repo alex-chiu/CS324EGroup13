@@ -1,7 +1,9 @@
 class Player {
-  float x, y, vx, vy, ms;
+  float x, y, vx, vy, ms, shieldAngle;
+  boolean shieldActive = false;
   PImage ship = loadImage("spaceship.png");
   PImage shipMoving = loadImage("spaceship-moving.png");
+  PImage shield = loadImage("shield.png");
   
   // Animation
   int numFrames = 4;
@@ -18,8 +20,10 @@ class Player {
     vx = 0;
     vy = 0;
     ms = 5;
+    shieldAngle = 0;
     ship.resize(50, 50);
     shipMoving.resize(50, 50);
+    shield.resize(75, 75);
     
     // Setup Move Left Animation
     xSprite = new PImage[numFrames];
@@ -42,6 +46,14 @@ class Player {
   // Draws Player Ship
   void display() {
     imageMode(CENTER);
+    if (shieldActive) {
+      pushMatrix();
+      translate(x, y);
+      rotate(shieldAngle);
+      image(shield, 0, 0); 
+      popMatrix();
+      shieldAngle += 0.5;
+    }
     if (vx < 0) {
       int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
       image(xSprite[frame], x, y);
@@ -50,11 +62,11 @@ class Player {
       int frame = (frameCount / 10) % numFrames; // Number Controls Rotation Speed: Higher = Slower Rotation, Lower = Faster Rotation
       image(xSprite2[frame], x, y);
     }
-    else if (vy != 0){
+    else if (vy != 0) {
       imageMode(CENTER);
       image(shipMoving, x, y);
     }
-    else{
+    else {
       imageMode(CENTER);
       image(ship, x, y);
     }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game>
-  <player name="  " rank="1" score="15310"/>
-  <player name="ac" rank="2" score="100"/>
-  <player name="ac" rank="3" score="40"/>
-  <player name="xx" rank="4" score="30"/>
-  <player name="yy" rank="5" score="30"/>
-  <player name="aw" rank="6" score="30"/>
-  <player name="xd" rank="7" score="30"/>
-  <player name="aa" rank="8" score="30"/>
-  <player name="aa" rank="9" score="10"/>
-  <player name="P" rank="10" score="0"/>
+  <player name="al" rank="1" score="15310"/>
+  <player name="ac" rank="2" score="1350"/>
+  <player name="ls" rank="3" score="150"/>
+  <player name="ac" rank="4" score="100"/>
+  <player name="ac" rank="5" score="40"/>
+  <player name="xx" rank="6" score="30"/>
+  <player name="yy" rank="7" score="30"/>
+  <player name="aw" rank="8" score="30"/>
+  <player name="xd" rank="9" score="30"/>
+  <player name="aa" rank="10" score="30"/>
 </game>

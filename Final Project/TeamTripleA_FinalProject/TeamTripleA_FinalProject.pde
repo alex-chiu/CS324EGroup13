@@ -57,8 +57,6 @@ void setup() {
   shipExplosion = minim.loadSample("explosion.wav", 512);
   enemyExplosion = minim.loadSample("shipFire2.wav", 512);
 
-  // Scale
-  
   // Load Font
   gameFont = createFont("airstrike.ttf", 32);
   textFont(gameFont);
@@ -141,11 +139,12 @@ void draw() {
       randomStars[i].display();
     }
     
+    // Updating Game Loop
     if (!gameOver) {
       // Spawns New Enemies
       if (gui.spawnWave) {
         gui.spawnWave = false;
-        if (gui.level <= 3) {
+        if (gui.level <= 3) { // Up to Level 3
           for (int i = 0; i < gui.level; i++) {
             for (int j = 1; j < 5; j++) {
               Enemy e = new Enemy(240*j, 25 - 50*i, 0, 1);
@@ -153,7 +152,7 @@ void draw() {
             }
           }
         }
-        else if (gui.level <= 6) {
+        else if (gui.level <= 6) { // Up to Level 6
           for (int i = 0; i < (gui.level - 3); i++) {
             for (int j = 1; j < 8; j++) {
               Enemy e = new Enemy(150*j, 25 - 50*i, 0, 1);
@@ -162,7 +161,7 @@ void draw() {
           }
         }
         else {
-          for (int i = 0; i < (gui.level - 6); i++) {
+          for (int i = 0; i < (gui.level - 6); i++) { // Level 7 and Up
             for (int j = 1; j < 8; j++) {
               Enemy e = new Enemy(150*j, 25 - 50*i, (float)(-0.5 + Math.random()), 1);
               currentEnemies.add(e);
@@ -185,7 +184,12 @@ void draw() {
       
         // Check if Player hits Enemies
         if (currentEnemies.get(i).checkPlayerCollision(player)) {
-          gui.lives -= 1;
+          if (player.shieldActive) {
+            player.shieldActive = false; 
+          }
+          else {
+            gui.lives -= 1;
+          }
           player.x = width/2;
           player.y = 800;
           shipExplosion.trigger();
@@ -215,6 +219,9 @@ void draw() {
       if (currentEnemies.size() == 0) {
         gui.level += 1;
         gui.spawnWave = true;
+        if ((gui.level % 3 == 0) && !player.shieldActive) {
+           player.shieldActive = true;
+        }
       }
     
       // Move and Draw Player
@@ -234,6 +241,7 @@ void draw() {
       // rect(width/2 - 290, 690, 370, 32);
       // rect(745, 690, 420, 32);
       
+      // Reload High Score File
       scoreChildren = scoreXML.getChildren("player");
       for (int i = 0; i < scoreChildren.length; i++) {
         if (gui.score > scoreChildren[i].getInt("score")) {
@@ -243,12 +251,15 @@ void draw() {
         }
       }
       
+      // Draw Game Over Text
       fill(50, 250, 25);
       textSize(64);
       textAlign(CENTER, CENTER);
       text("Game Over", width/2, 100);
       text("Level: " + gui.level, width/2, 200);
       text("Score: " + gui.score, width/2, 300);
+      
+      // Enter New HS In XML File
       if (newHS) {
          text("New High Score", width/2, 400);
          text("Enter Initials: " + gui.hsInitials, width/2, 500);
